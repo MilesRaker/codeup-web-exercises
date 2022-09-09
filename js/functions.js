@@ -33,7 +33,7 @@ let newHelloMessage = sayHello(myName);
 console.log(newHelloMessage);
 // Don't modify the following line, it generates a random number between 1 and 3
 // and stores it in a variable named random
-var random = Math.floor((Math.random() * 3) + 1);
+const random = Math.floor((Math.random() * 3) + 1);
 
 /**
  * TODO:
@@ -53,10 +53,7 @@ var random = Math.floor((Math.random() * 3) + 1);
  * number)
  */
 function isTwo(num){
-    if(num == 2){
-        return true;
-    }
-    return false;
+    return num === 2;
 }
 
 console.log(isTwo(random));
@@ -104,11 +101,10 @@ alert("The calculated tip for a $" + bill + " bill and " + tipPercent + " tip is
  */
 
 function applyDiscount(price, discountPercent) {
-    let discountedPrice = price - price * discountPercent;
-    return discountedPrice;
+    return price - price * discountPercent;
 }
 
-console.log("A $23.43 item with a 15% discount costs: " + applyDiscount((23.43, .15)));
+console.log("A $23.43 item with a 15% discount costs: " + applyDiscount(23.43, .15));
 
 let itemPrice = parseFloat(prompt("How much does the item cost? "));
 let itemDiscount = parseFloat(prompt("What is the discount rate? (enter as a decimal): "));
