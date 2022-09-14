@@ -152,7 +152,7 @@ let num = prompt("what is your number?");*/
  * HINT: The way we prompt for a value could be improved
  */
 
-(function (){
+/*(function (){
     alert("Conditionals Program start: ");
 
     if(confirm("Would you like to enter a number?")){
@@ -171,5 +171,26 @@ let num = prompt("what is your number?");*/
     } else {
         alert("You chose not to enter a number. I don't have any data for you!");
     }
-})();
+})();*/
 
+function funnyNumbers(){
+    let game = confirm("Do you wanna play a gaaaaaame?????");
+
+    if(game){
+        let input = prompt("gimme a number.");
+        //some calculations
+
+        let inputIsEven = (input % 2 === 0);// true or false
+        let inputPlus100 = 100 + Number(input);
+        let inputIsPositive = (input >= 1);
+
+        alert("is it even: " + inputIsEven); // is even?
+        alert("number + 100: " + inputPlus100); // + 100?
+        alert("the number is positive: " + inputIsPositive); // positive?
+
+    }else{
+        alert("Game over mannnn.");
+    }
+}
+
+funnyNumbers();
