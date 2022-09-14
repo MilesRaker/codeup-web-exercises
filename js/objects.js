@@ -73,7 +73,28 @@
      * > console.log(books[0].author.firstName) // "Douglas"
      * > console.log(books[0].author.lastName) // "Adams"
      */
+// let books = [
+//         {title: "Undeniable", author: {firstName: "Bill", lastName: "Nye"}},
+//         {title: "Cosmos", author:{firstName: "Carl", lastName: "Sagan"}},
+//         {title: "Hit Refresh", author:{firstName: "Satya", lastName: "Nedala"}},
+//         {title: "Cracking the Coding Interview", author: {firstName: "Gayle", lastName: "McDowell"}},
+//         {title: "The Skeptics Guide to the Universe", author: {firstName: "Steven", lastName: "Novella"}}
+//     ];
+    let createBook = function(title, authorFirstName, authorLastName){
+        let book = {
+            title: title,
+            author: {firstName: authorFirstName, lastName: authorLastName}
+        };
+        return book;
+    }
 
+    let books = [
+        createBook("Undeniable", "Bill", "Nye"),
+        createBook("Cosmos", "Carl", "Sagan"),
+        createBook("Hit Refresh", "Satya", "Nadella"),
+        createBook("Cracking the Coding Interview", "Gayle", "McDowell"),
+        createBook("Skeptics Guide to the Universe", "Steven", "Novella")
+    ];
     /**
      * TODO:
      * Loop through the books array and output the following information about
@@ -98,6 +119,15 @@
      *      ---
      *      ...
      */
+    (function(){
+        console.log("Logging Library Data: ");
+        books.forEach(function(book,index){
+            console.log("Book # " + (index + 1));
+            console.log("Title: " + book.title);
+            console.log("Author: " + book.author.firstName + " " + book.author.lastName);
+            console.log("---");
+        })
+    })();
 
     /**
      * Bonus:
@@ -109,5 +139,22 @@
      *   outputs the information described above. Refactor your loop to use your
      *   `showBookInfo` function.
      */
+
+
+
+
+    let showBookInfo = function(book, index){
+        console.log("Book # " + (index + 1));
+        console.log("Title: " + book.title);
+        console.log("Author: " + book.author.firstName + " " + book.author.lastName);
+        console.log("---");
+    };
+
+    (function(){
+        console.log("using new function, showBookInfo");
+        for(let i = 0; i < books.length; i ++){
+            showBookInfo(books[i], i);
+        }
+    })();
 
 })();
