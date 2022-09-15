@@ -1,0 +1,51 @@
+:root{
+    --info-color: #4e49a4;
+    --info-bg: #cddfff;
+    --success-color: #3d8656;
+    --success-bg: #cff3da;
+    --warning-color: #9b8931;
+    --warning-bg: #fcfbc9;
+    --error-color: #96354b;
+    --error-bg: #fbd3d7;
+}
+
+
+body, html {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Ubuntu, sans-serif;
+}
+
+#container{
+    width: calc(100% - 6px);
+    border: 3px black solid;
+}
+
+.message{
+    border-radius: 5px;
+    width: calc(100% - .6em - 2em); /* remove horizontal space created from padding and margin, in order to keep fit proper*/
+    margin: .3em;
+    padding: .5em 1em ;
+}
+
+.message-info{
+    color: var(--info-color);
+    background-color: var(--info-bg)
+}
+
+.message-success{
+    color: var(--success-color);
+    background-color: var(--success-bg)
+}
+
+.message-warning{
+    color: var(--warning-color);
+    background-color: var(--warning-bg);
+}
+
+.message-error{
+    color: var(--error-color);
+    background-color: var(--error-bg);
+}
