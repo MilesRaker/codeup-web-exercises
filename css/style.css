@@ -1,7 +1,51 @@
-
+html{
+    font-family: "Avenir Next";
+}
 .fancy-header {
     color: purple;
     text-decoration: underline;
 }
 
 /*styles "closer" to the element take precedent. "style" attributes override external css and embedded style sheets*/
+
+.main{
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6{
+    color: green;
+    text-decoration: underline;
+}
+
+body {
+    background-color: cornsilk;
+}
+
+header {
+    background-image: url("../img/Forest_Waterfall.jpg");
+}
+
+ul {
+    list-style-type: square;
+}
+
+table, th, td, tr{
+    font-size: 1.2em;
+    padding-left: 4em;
+}
+
+a:link{
+    color: #000000;
+}
+
+a:visited{
+    color: #CCCCCC;
+}
+
+a:hover{
+    font-size: 1.5em;
+}
+
+a:active{
+    background-color: #0F0F0F;
+}
