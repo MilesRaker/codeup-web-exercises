@@ -1,0 +1,7 @@
+
+.fancy-header {
+    color: purple;
+    text-decoration: underline;
+}
+
+/*styles "closer" to the element take precedent. "style" attributes override external css and embedded style sheets*/
