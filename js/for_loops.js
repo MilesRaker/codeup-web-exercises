@@ -32,6 +32,7 @@ function generateRandom20to200(){
         let num = generateRandom20to200();
         console.log(num + " is " + (isEven(num) ? "even" : "odd"));
     }
+
 })();
 
 // Question 4:

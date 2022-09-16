@@ -15,7 +15,6 @@
 
 (function(){
     let conesToSell = Math.floor(Math.random() * 50) + 50;
-    let conesSold = 0;
 
     console.log("I have " + conesToSell + " cones to sell.");
     do{
