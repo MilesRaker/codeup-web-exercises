@@ -52,13 +52,58 @@ a{
     font-family: "work-sans";
 }
 
-#logo{
+.logo{
     font-size: 3em;
     padding: .2em 0;
     font-family: "Montserrat";
     margin: auto;
 }
+
 h1{
     margin: 0;
     padding: 0;
+}
+
+#footer{
+    background-color: black;
+    color: white;
+
+}
+
+footer a:link{
+    color: white;
+}
+
+footer ul{
+    list-style: none;
+}
+
+#upper-footer{
+    display: flex;
+    max-width: 90%;
+    margin: auto;
+}
+
+#lower-footer{
+    display: flex;
+    max-width: 90%;
+    margin: auto;
+}
+
+#footer-link-list{
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-links{
+    padding: 0 .5em;
+}
+
+.footer-icon{
+    padding: 0 .25em;
+}
+#copyright{
+    color: gray;
+    margin: auto;
 }
