@@ -1,0 +1,64 @@
+/*TODO:
+   The navbar must have the following:
+
+done - box-sizing: border-box for all elements
+done - link text, the logo, and icons are surrounded by anchor tags
+done - links turn blue on hover
+done - anchor tags are display: inline-block
+done - clickable area of links immediately flow from one link to the next (padding will help achieve this)
+done - Google Fonts used for logo and link text ("Montserrat" and "Work Sans", respectively)
+done - the "Logo" text is 3em with .2em of padding above and below
+done - no explicit height given to the navbar
+done - default styling is removed as needed from the body, unordered list and anchor tag elements
+done - logo is horizontally centered on the navbar (automatic margins will help achieve this)
+Finally, commit the changes to your git repository, and push to GitHub.*/
+
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    background-color: gray;
+    align-items: center;
+}
+
+.links-nav{
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.links-profile{
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+a:link{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+a{
+    display: inline-block;
+}
+
+.nav-links{
+    padding: .5em;
+    font-family: "work-sans";
+}
+
+#logo{
+    font-size: 3em;
+    padding: .2em 0;
+    font-family: "Montserrat";
+    margin: auto;
+}
+h1{
+    margin: 0;
+    padding: 0;
+}
