@@ -1,0 +1,162 @@
+/*TODO:
+done - Download this html page and save it as media-queries.html. We are using placeholder to generate a random image for each page.
+done - Create a css file named media-queries.css, and link it to your html file.
+done - Add a meta tag to set the viewport.
+Use the existing html structure and classes to style the page to match the wireframes below. You should not modify the existing html to achieve this.
+Test your results by resizing your browser window, or using chrome's mobile device emulation.
+Finally, commit the changes to your git repository, and push to GitHub.
+*/
+*{
+    --alert-bg: #D6FEFE;
+    --link-bg: #CCCCCC;
+}
+@media screen and (min-width: 0px) and (max-width: 600px){
+    .alert-info {
+        background-color: var(--alert-bg);
+        border: #D3D3D3 2px solid;
+        display: flex;
+    }
+
+    .alert-info a {
+        color: black;
+        text-decoration: none;
+        margin: 1em auto ;
+    }
+
+    body{
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1{
+        margin: .5em auto;
+        font-weight: bold;
+    }
+
+    .nav-links{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li{
+        margin: .5em auto;
+        padding: 1em;
+        background-color: var(--link-bg);
+        width: calc(100% - 2em);
+        display: flex;
+    }
+
+    .nav-links>li>a{
+        margin: auto;
+        font-weight: bold;
+    }
+
+    .header-img{
+        width: 100%;
+        height: auto;
+    }
+
+    .header-img img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (min-width: 600px){
+    .hidden-on-desktop{
+        visibility: hidden;
+    }
+
+    body{
+
+    }
+
+    h1{
+        float: left;
+        margin: .5em auto;
+    }
+
+    .nav-links{
+        align-self: flex-end;
+        list-style: none;
+        display: flex;
+        float: right;
+    }
+
+    .nav-links li{
+        margin: .5em auto;
+        padding: 1em;
+
+    }
+
+    .nav-links>li>a{
+        margin: auto;
+
+    }
+
+    .header-img{
+        width: 100%;
+        height: auto;
+    }
+
+    .header-img img{
+        width: 100%;
+        height: auto;
+        max-width: 900px;
+    }
+
+    main{
+        display: flex;
+    }
+
+    .main{
+        align-self: flex-start;
+        width: calc(50% - 1em);
+        margin: .5em;
+    }
+
+    .sub-section{
+        align-self: flex-end;
+        width: calc(50% - 1em);
+        margin: .5em;
+    }
+
+    footer{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        background-color: lightblue;
+    }
+
+    footer>p{
+        justify-content: center;
+        align-items: center;
+        padding: .5em;
+    }
+
+    footer>ul{
+        /*display: flex;*/
+        /*width: 100%;*/
+    }
+
+    #social-list{
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        /*padding: 0;*/
+        /*margin: auto;*/
+    }
+
+    #social-list>a{
+        color: black;
+        padding: .5em;
+    }
+
+
+
+}
