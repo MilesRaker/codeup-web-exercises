@@ -141,7 +141,7 @@
      */
 
 
-
+    /* createBook() is on line 83 */
 
     let showBookInfo = function(book, index){
         console.log("Book # " + (index + 1));

@@ -1,0 +1,28 @@
+/*
+done - Include Bootstrap on a new HTML page named order-pizza.html
+done - This page should have a main navigation bar. You can use Bootstrap Icons, or Fontawesome Icons for the Sign Up.
+done - The rest of your content should live inside of a container. We'll talk about layout more in the next lesson,
+    for now, know that the container provides us with some default styles so that our content isn't too wide.
+done - Below the navbar, we'll be creating a custom component similar to Bootstraps jumbotron.
+    Create a file custom.css and create rules for .jumbotron: Save this background image to set the background-image,
+    set the height: 346px and the background-size: cover for the jumbotron class. Create a <div> to and add the
+    jumbotron class. To create the light title bar, create another <div> within your jumbotron and change the
+    [opacity][opacity] of the light background. This component should be hidden for devices with small screens.
+    See the documentation for the display utility classes to hide the jumbotron properly.                                                                                                                                                                                                        Below the navbar, we'll be creating a custom component similar to Bootstraps jumbotron. Create a file custom.css and create rules for .jumbotron: Save this background image to set the background-image, set the height: 346px and the background-size: cover for the jumbotron class. Create a <div> to and add the jumbotron class. To create the light title bar, create another <div> within your jumbotron and change the [opacity][opacity] of the light background. This component should be hidden for devices with small screens. See the documentation for the display utility classes to hide the jumbotron properly.
+done - Below the jumbotron add an h2 and some nav-tabs. The numbers shown in the image are badges.
+done - Add a card after the tabs to select size and crust for the pizza, as shown in the image below.
+    Within the card there are 2 more cards. The radio buttons are inside a list-group. Note that the HTML is slightly different for checkboxes and radios
+    (You might also find it helpful to use an input group). Also, the button inside the main card's footer is aligned to the right.
+done - Add one more panel to select the type of cheese and sauce for the pizza. Take a look at the docs for form controls to format them correctly.
+    The options for cheese are: Light, Normal, Extra and Double. The options for sauce are: Tomato, Marinara, BBQ and Alfredo.
+    The options for the amount of sauce are: Light, Normal and Extra. Notice that the buttons in the panel footer are grouped.
+done - Add one last panel for the toppings, the checkboxes are inside list groups as the radio buttons in the first panel.*/
+
+/*TODO
+   make *next* buttons functional*/
+
+.jumbotron{
+    background-image: url("../img/pizza.png");
+    height: 346px;
+    background-size: cover;
+}
