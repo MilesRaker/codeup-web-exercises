@@ -95,6 +95,7 @@
         createBook("Cracking the Coding Interview", "Gayle", "McDowell"),
         createBook("Skeptics Guide to the Universe", "Steven", "Novella")
     ];
+
     /**
      * TODO:
      * Loop through the books array and output the following information about
@@ -143,18 +144,70 @@
 
     /* createBook() is on line 83 */
 
-    let showBookInfo = function(book, index){
-        console.log("Book # " + (index + 1));
-        console.log("Title: " + book.title);
-        console.log("Author: " + book.author.firstName + " " + book.author.lastName);
-        console.log("---");
-    };
+    // let showBookInfo = function(book, index){
+    //     console.log("Book # " + (index + 1));
+    //     console.log("Title: " + book.title);
+    //     console.log("Author: " + book.author.firstName + " " + book.author.lastName);
+    //     console.log("---");
+    // };
+    //
+    // (function(){
+    //     console.log("using new function, showBookInfo");
+    //     for(let i = 0; i < books.length; i ++){
+    //         showBookInfo(books[i], i);
+    //     }
+    // })();
 
+
+
+
+
+
+
+
+
+
+let cat = {
+    name: "Penny",
+    lengthOfHair: "longhair",
+    furStyle: "matted",
+    meow: function(){
+        console.log("M E O W !");}
+}
+cat.meow();
+
+// function showBookInfo(arrayOfBooks){
+//     let niceString = "";
+//     for(let i = 0; i < arrayOfBooks.length; i++){
+//         niceString += arrayOfBooks[i].title;
+//         niceString += "\n";
+//         niceString += arrayOfBooks[i].author.firstName + " " + arrayOfBooks[i].author.lastName;
+//         niceString += "\n==================\n"
+//     }
+//     return niceString// nicely formatted info of each book
+// }
+
+// function showBookInfo(arrayOfBooks){
+//     let niceString="";
+//
+//     arrayOfBooks.forEach(function(book){
+//         niceString += book.title;
+//         niceString += "\n";
+//         niceString += book.author.firstName + " " + book.author.lastName;
+//         niceString += "\n==================\n"
+//     })
+//     return niceString;
+// }
+//console.log(showBookInfo(books));
+
+function showBookInfo(book){
+    let niceString = book.title + "\n" + book.author.firstName + " " + book.author.lastName + "\n------------------";
+    return niceString;
+}
     (function(){
-        console.log("using new function, showBookInfo");
-        for(let i = 0; i < books.length; i ++){
-            showBookInfo(books[i], i);
+        for(let i = 0; i < books.length; i++){
+            console.log(showBookInfo(books[i]));
         }
-    })();
+    })()
 
 })();
