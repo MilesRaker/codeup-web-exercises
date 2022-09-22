@@ -5,6 +5,7 @@
     --color-aqua: #00ABA9;
     --color-white-ish:#F0F0F0;
     --color-gray: #E6E6E6;
+    background-color: var(--color-gray);
 }
 
 .font-bold{
@@ -13,4 +14,39 @@
 
 .font-regular{
     font-family: "abel";
+}
+
+.icon105{
+    height: 105px;
+    width: 105px;
+}
+
+.icon15{
+    height: 18px;
+    width: 18px;
+}
+#burgerButton{
+    border: 2px solid #DEDEDE;
+}
+
+.design{
+    background-color: var(--color-red);
+}
+
+.develop{
+    background-color: var(--color-orange);
+}
+
+.support{
+    background-color: var(--color-green);
+}
+
+.host{
+    background-color: var(--color-aqua);
+}
+
+.topNavIcons{
+    border: 10px solid white;
+    border-radius: 50%;
+    color: white;
 }

@@ -98,4 +98,5 @@ function returnBookStatus(array){
             console.log(`Book number ${index}'s reading status is: ${status}`)
         })
     })()
+
 })()
