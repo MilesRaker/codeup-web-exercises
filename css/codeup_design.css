@@ -1,0 +1,16 @@
+*{
+    --color-red: #E6563B;
+    --color-orange: #EB9D3A;
+    --color-green: #7CB06C;
+    --color-aqua: #00ABA9;
+    --color-white-ish:#F0F0F0;
+    --color-gray: #E6E6E6;
+}
+
+.font-bold{
+    font-family: "Anton";
+}
+
+.font-regular{
+    font-family: "abel";
+}
