@@ -7,6 +7,12 @@
 <body>
 
 <h1 id="main-header">Hello World!</h1>
+<div>
+    <button class="eventButtons">Surprise</button>
+    <button class="eventButtons">Me</button>
+    <button class="eventButtons">With</button>
+    <button class="eventButtons">Buttons!</button>
+</div>
 <ul>
     <li data-dbid="1">Item 1</li>
     <li data-dbid="2">Item 2</li>
@@ -31,36 +37,74 @@
 </p>
 
 <script>
-    (function() {
-        "use strict";
-        // TODO: Uncomment next line and get the main header element by id
-        let mainHeader = document.getElementById("main-header");
+    // (function() {
+    //     "use strict";
+    //     // TODO: Uncomment next line and get the main header element by id
+    //     let mainHeader = document.getElementById("main-header");
+    //
+    //     // TODO: Set inner html of mainHeader to "JavaScript is Cool"
+    //     mainHeader.innerHTML="JavaScript is Cool"
+    //     // TODO: Uncomment the next line and get the sub header element by id
+    //     let subHeader = document.getElementById("sub-header");
+    //
+    //     // TODO: Set the text color of subHeader to blue
+    //     subHeader.style.color = "blue";
+    //     // TODO: Uncomment the next line and get all list items
+    //     let listItems = document.getElementsByTagName("li");
+    //     console.log(listItems);
+    //     // TODO: Set text color on every other list item to grey
+    //     for (let listItem of listItems) {
+    //         listItem.style.color="grey";
+    //     }
+    //     // TODO: Set text color of li with dbid = 1 to blue
+    //     for (let listItem of listItems) {
+    //         if(listItem.dataset.dbid == 1)
+    //         listItem.style.color="blue";
+    //     }
+    //     // TODO: Uncomment the next line and get all elements with class name sub-paragraph
+    //     let subParagraphs = document.getElementsByClassName("sub-paragraph");
+    //
+    //     // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
+    //     subParagraphs[0].innerHTML = "Mission Accomplished!"
+    // })();
 
-        // TODO: Set inner html of mainHeader to "JavaScript is Cool"
-        mainHeader.innerHTML="JavaScript is Cool"
-        // TODO: Uncomment the next line and get the sub header element by id
-        let subHeader = document.getElementById("sub-header");
+    (function(){
+        "use strict"
 
-        // TODO: Set the text color of subHeader to blue
-        subHeader.style.color = "blue";
-        // TODO: Uncomment the next line and get all list items
-        let listItems = document.getElementsByTagName("li");
-        console.log(listItems);
-        // TODO: Set text color on every other list item to grey
-        for (let listItem of listItems) {
-            listItem.style.color="grey";
-        }
-        // TODO: Set text color of li with dbid = 1 to blue
-        for (let listItem of listItems) {
-            if(listItem.dataset.dbid == 1)
-            listItem.style.color="blue";
-        }
-        // TODO: Uncomment the next line and get all elements with class name sub-paragraph
-        let subParagraphs = document.getElementsByClassName("sub-paragraph");
+        // get the buttons
+        let buttons = document.getElementsByClassName("eventButtons");
 
-        // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
-        subParagraphs[0].innerHTML = "Mission Accomplished!"
-    })();
+        // add event listeners
+        buttons[0].addEventListener('click', alterMainHeader);
+        buttons[1].addEventListener("click", setSubHeaderBlue);
+        buttons[2].addEventListener("click", setLiColorGrey);
+        buttons[3].addEventListener("click", setLiOneBlue);
+
+        // define listeners
+        function alterMainHeader(){
+            let mainHeader = document.getElementById("main-header");
+            mainHeader.innerHTML="JavaScript is Cool"
+        };
+
+        function setSubHeaderBlue(){
+            let subHeader = document.getElementById("sub-header");
+            subHeader.style.color = "blue";
+        };
+
+        function setLiColorGrey(){
+            let listItems = document.getElementsByTagName("li");
+                for (let listItem of listItems) {
+                    listItem.style.color="grey";
+                    if(listItem.dataset.dbid == 1)
+                        listItem.style.color="blue";
+                }
+        };
+
+        function setLiOneBlue(){
+            let subParagraphs = document.getElementsByClassName("sub-paragraph");
+            subParagraphs[0].innerHTML = "Mission Accomplished!"
+        };
+    })()
 </script>
 </body>
 </html>
