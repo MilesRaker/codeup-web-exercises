@@ -1,0 +1,148 @@
+"use strict"
+
+// TODO: Add AI Opponent
+
+// ----------- Initialize variables
+let icon_X = "X" //'<i className="fa-solid fa-x"></i>';
+let icon_O = "O" //'<i className="fa-solid fa-o"></i>';
+let nextIconX = null;
+let turnsPlayed = 0;
+
+// ----------- Link html elements -----------
+let gameGridButtons = document.getElementsByClassName("grid-button");
+let startButton = document.getElementById("startButton");
+let textOutput = document.getElementById("textOutput");
+let freezeBoard = false;
+
+// ----------- Create Initial State -----------
+window.onload = startNewGame;
+
+
+// ----------- Event Listeners -----------
+// add event listeners for all gameGridButtons
+for (let gameGridButton of gameGridButtons) {
+    gameGridButton.addEventListener('click', placeMark);
+}
+
+startButton.addEventListener('click', startNewGame);
+
+
+// ----------- Functions -----------
+function placeMark(){
+    if(this.innerHTML == "" && !freezeBoard){
+
+        if(nextIconX){
+            this.innerHTML = icon_X;
+        } else {
+            this.innerHTML = icon_O;
+        }
+
+        if(startButton.innerHTML == "Start"){
+            startButton.innerHTML = "Restart";
+        }
+
+        nextIconX = !nextIconX;
+        turnsPlayed++;
+        let winnerData = determineWinner();
+        if(winnerData[0]){
+            setTextOutput(`The winner is: ` + winnerData[1])
+            freezeBoard = true;
+            return;
+        }
+        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+    }
+}
+
+// Game Control Buttons
+
+function startNewGame(){
+    for(let gameGridButton of gameGridButtons){
+        gameGridButton.innerHTML = "";
+    }
+    freezeBoard = false;
+    startButton.innerHTML = "Start";
+    nextIconX = randTrueFalse();
+    setTextOutput((nextIconX? "X" : "Y") + " starts the game")
+}
+
+// Text Output p
+
+function setTextOutput(outputText){
+    textOutput.innerHTML=outputText;
+}
+
+// Helper functions
+
+function randTrueFalse(){
+    return (Math.random() >= 0.5 )? true:false;
+}
+
+function determineWinner(){
+    let gameMatrix = [];
+    let winnerExists = false;
+    let winner = "";
+    // gameGridButtons.forEach((button, index ) => function(){
+    //     gameMatrix[index] = button.innerHTML == "X"? true : false;
+    // })
+
+    for (let i = 0; i < gameGridButtons.length; i++) {
+        gameMatrix[i] = gameGridButtons[i].innerHTML;
+    }
+    console.log(gameMatrix);
+    // TODO: Refactor if else section
+    if( gameMatrix[0] == "X" && gameMatrix[1] == "X" && gameMatrix[2] == "X") {
+        winnerExists = true;
+        winner = "X";
+    } else if( gameMatrix[0] == "O" && gameMatrix[1] == "O" && gameMatrix[2] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[3] == "X" && gameMatrix[4] == "X" && gameMatrix[5] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[3] == "O" && gameMatrix[4] == "O" && gameMatrix[5] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[6] == "X" && gameMatrix[7] == "X" && gameMatrix[8] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[6] == "O" && gameMatrix[7] == "O" && gameMatrix[8] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[0] == "X" && gameMatrix[3] == "X" && gameMatrix[6] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[0] == "O" && gameMatrix[3] == "O" && gameMatrix[6] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[1] == "X" && gameMatrix[4] == "X" && gameMatrix[7] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[1] == "O" && gameMatrix[4] == "O" && gameMatrix[7] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[2] == "X" && gameMatrix[5] == "X" && gameMatrix[8] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[2] == "O" && gameMatrix[5] == "O" && gameMatrix[8] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[0] == "X" && gameMatrix[4] == "X" && gameMatrix[8] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[0] == "O" && gameMatrix[4] == "O" && gameMatrix[8] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else if(gameMatrix[2] == "X" && gameMatrix[4] == "X" && gameMatrix[6] == "X"){
+        winnerExists = true;
+        winner = "X";
+    } else if(gameMatrix[2] == "O" && gameMatrix[4] == "O" && gameMatrix[6] == "O"){
+        winnerExists = true;
+        winner = "Y";
+    } else {
+        winnerExists = false;
+        winner = "";
+    }
+
+console.log([winnerExists, winner]);
+    return [winnerExists, winner]
+}

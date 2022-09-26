@@ -1,0 +1,33 @@
+.grid-square{
+    border: 3px solid black;
+    height: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    width: 100px;
+    max-width: 100px;
+    min-width: 100px;
+    padding:0;
+    margin:0;
+}
+
+.grid-button{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #848487;
+    border-radius: 0;
+    color: white;
+}
+
+.grid-button:hover{
+    background-color: lightblue;
+}
+
+.gameControl{
+
+}
+
+.controllerRow {
+    max-width: 300px;
+}
