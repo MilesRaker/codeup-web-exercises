@@ -1,6 +1,6 @@
 "use strict"
 
-// TODO: Add AI Opponent
+// TODO: Multiple AI levels
 
 // ----------- Initialize variables
 let icon_X = "X" //'<i className="fa-solid fa-x"></i>';
@@ -15,10 +15,11 @@ let gameGridButtons = document.getElementsByClassName("grid-button");
 let startButton = document.getElementById("startButton");
 let textOutput = document.getElementById("textOutput");
 let gameType = document.getElementById("gameType");
+let turnCounter = document.getElementById("turnCounter");
 
 // ----------- Create Initial State -----------
 window.onload = startNewGame;
-
+turnCounter.innerHTML = turnsPlayed.toString();
 
 // ----------- Event Listeners -----------
 // add event listeners for all gameGridButtons
@@ -30,45 +31,6 @@ startButton.addEventListener('click', startNewGame);
 gameType.addEventListener("click", setGameType);
 
 // ----------- Functions -----------
-
-/*function turn(){
-    if(this.innerHTML === "" && !freezeBoard) {
-        /!*if 1 player, use onePlayerTurn(), if 2 player use twoPlayerTurn*!/
-        if (onePlayer) {
-            onePlayerTurn(this);
-        } else {
-            twoPlayerTurn(this);
-        }
-    }
-};
-
-function onePlayerTurn(){
-
-};
-
-function twoPlayerTurn(){
-        placeMark();
-        setTurnData();
-
-        let winnerData = determineWinner();
-        if(winnerData[0]){
-            setTextOutput(`The winner is: ` + winnerData[1])
-            freezeBoard = true;
-            return;
-        }
-        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
-
-
-};
-
-function setTurnData(){
-    if(startButton.innerHTML == "Start"){
-        startButton.innerHTML = "Restart";
-    }
-
-    nextIconX = !nextIconX;
-    turnsPlayed++;
-}*/
 
 function placeMark(){
 
@@ -84,13 +46,13 @@ function placeMark(){
         }
 
         nextIconX = !nextIconX;
-        turnsPlayed++;
+        turnCounter.innerHTML = ((++turnsPlayed).toString());
         let winnerData = determineWinner();
         if(winnerData[0]){
             setTextOutput(`The winner is: ` + winnerData[1])
             freezeBoard = true;
             return;
-        } else if(turnsPlayed == 9){
+        } else if(turnsPlayed === 9){
             setTextOutput(`Draw`)
             freezeBoard = true;
             return;
@@ -105,27 +67,36 @@ function placeMark(){
 function AITurn(){
     let currentState = gameState();
     let markPlaced = false;
-    do{
-        let randomSquare = Math.floor(Math.random()*8);
-        if(currentState[randomSquare] == ""){
-            if(nextIconX){
-                gameGridButtons[randomSquare].innerHTML = icon_X;
-            } else {
-                gameGridButtons[randomSquare].innerHTML = icon_O;
-            }
-            markPlaced = true;
-        }
-    } while(!markPlaced)
+    setTimeout(function(){
 
-    nextIconX = !nextIconX;
-    turnsPlayed++;
-    let winnerData = determineWinner();
-    if(winnerData[0]){
-        setTextOutput(`The winner is: ` + winnerData[1])
-        freezeBoard = true;
-        return;
-    }
-    setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+        // choose random unoccupied space
+        do{
+            let randomSquare = Math.floor(Math.random()*8);
+            if(currentState[randomSquare] == ""){
+                if(nextIconX){
+                    gameGridButtons[randomSquare].innerHTML = icon_X;
+                } else {
+                    gameGridButtons[randomSquare].innerHTML = icon_O;
+                }
+                markPlaced = true;
+            }
+        } while(!markPlaced)
+
+        nextIconX = !nextIconX;
+        turnCounter.innerHTML = ((++turnsPlayed).toString());
+        let winnerData = determineWinner();
+        if(winnerData[0]){
+            setTextOutput(`The winner is: ` + winnerData[1])
+            freezeBoard = true;
+            return;
+        } else if(turnsPlayed === 9){
+            setTextOutput(`Draw`)
+            freezeBoard = true;
+            return;
+        }
+        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+    }, 1000);
+
 }
 // Game Control Buttons
 
@@ -146,6 +117,8 @@ function startNewGame(){
         gameGridButton.innerHTML = "";
     }
     freezeBoard = false;
+    turnsPlayed = 0;
+    turnCounter.innerHTML = turnsPlayed;
     startButton.innerHTML = "Start";
     nextIconX = randTrueFalse();
     setTextOutput((nextIconX? "X" : "Y") + " starts the game")
