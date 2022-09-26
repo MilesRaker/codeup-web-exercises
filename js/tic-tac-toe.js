@@ -45,20 +45,9 @@ function placeMark(){
             startButton.innerHTML = "Restart";
         }
 
-        nextIconX = !nextIconX;
-        turnCounter.innerHTML = ((++turnsPlayed).toString());
-        let winnerData = determineWinner();
-        if(winnerData[0]){
-            setTextOutput(`The winner is: ` + winnerData[1])
-            freezeBoard = true;
-            return;
-        } else if(turnsPlayed === 9){
-            setTextOutput(`Draw`)
-            freezeBoard = true;
-            return;
-        }
-        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
-        if(onePlayer){
+        let winnerData = turnLogic();
+
+        if(onePlayer && !winnerData[0]){
             AITurn();
         }
     }
@@ -82,34 +71,38 @@ function AITurn(){
             }
         } while(!markPlaced)
 
-        nextIconX = !nextIconX;
-        turnCounter.innerHTML = ((++turnsPlayed).toString());
-        let winnerData = determineWinner();
-        if(winnerData[0]){
-            setTextOutput(`The winner is: ` + winnerData[1])
-            freezeBoard = true;
-            return;
-        } else if(turnsPlayed === 9){
-            setTextOutput(`Draw`)
-            freezeBoard = true;
-            return;
-        }
-        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+        turnLogic()
     }, 1000);
 
+}
+
+function turnLogic(){
+    nextIconX = !nextIconX;
+    turnCounter.innerHTML = ((++turnsPlayed).toString());
+    let winnerData = determineWinner();
+    if(winnerData[0]){
+        setTextOutput(`The winner is: ` + winnerData[1])
+        freezeBoard = true;
+    } else if(turnsPlayed === 9){
+        setTextOutput(`Draw`)
+        freezeBoard = true;
+    } else {
+        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+    }
+    return winnerData;
 }
 // Game Control Buttons
 
 function setGameType(){
 
-    if(gameType.innerHTML == "1-Player"){
+    if(gameType.innerHTML === "1-Player"){
         gameType.innerHTML = "2-Player";
         onePlayer = false;
-    } else if(gameType.innerHTML == "2-Player"){
+    } else if(gameType.innerHTML === "2-Player"){
         gameType.innerHTML = "1-Player";
         onePlayer = true;
     }
-    console.log(onePlayer);
+    startNewGame();
 }
 
 function startNewGame(){
