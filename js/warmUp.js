@@ -99,4 +99,58 @@ function returnBookStatus(array){
         })
     })()
 
+
+
+
+    // ---------------- warm up 26 September 2022 -------------------
+
+    // Question 1: Write a function to return an array of only the Even numbers from an array with the numbers 1
+    // through 10
+    // example input: [1,2,3,4,5] expected output: [2,4]
+
+    function even1Through10(input){
+        let outputArray = [];
+        if(input.includes(2)){
+            outputArray.push(2);
+        }
+        if(input.includes(4)){
+            outputArray.push(4);
+        }
+        if(input.includes(6)){
+            outputArray.push(6);
+        }
+        if(input.includes(8)){
+            outputArray.push(8);
+        }
+        if(input.includes(10)){
+            outputArray.push(10);
+        }
+
+        return outputArray.sort();
+    }
+
+    console.log("even1Through10([1,2,3,4,5]) should be [2, 4]: " + even1Through10([1,2,3,4,5]));
+    console.log("even1Through10([1,2,3,4,5,6,7,8,9,10]) should be [2, 4, 6, 8, 10]: " + even1Through10([1,2,3,4,5,6,7,8,9,10]));
+    console.log("even1Through10([4,5,6,7,8]) should be [4, 6, 8]: " + even1Through10([4,5,6,7,8]));
+
+    // Question 2: Write a function that takes an array of objects and a string as arguments.
+    // Add a property with key ‘continent’ and value equal to the string to each of the objects.
+    // Return the new array of objects. Don’t mutate the original array.
+    // example input: [{ city: 'Tokyo', country: 'Japan' }, { city: 'Bangkok', country: 'Thailand' }], 'Asia'
+    // expected output: [{ city: 'Tokyo', country: 'Japan', continent: 'Asia' }, { city: 'Bangkok', country: 'Thailand', continent: 'Asia' }]
+
+    function addContinentProperty(locations, continent){
+        let updatedLocations = locations;
+        for (let updatedLocation of updatedLocations){
+            updatedLocation.continent = continent;
+        }
+        return updatedLocations;
+    };
+
+    let output = addContinentProperty([{ city: 'Tokyo', country: 'Japan' }, { city: 'Bangkok', country: 'Thailand' }], 'Asia')
+    console.log("addContinentProperty([{ city: 'Tokyo', country: 'Japan' }, { city: 'Bangkok', country: 'Thailand' }], 'Asia') should be [{ city: 'Tokyo', country: 'Japan', continent: 'Asia' }, { city: 'Bangkok', country: 'Thailand', continent: 'Asia' }] ");
+    for(let location of output){
+        console.log(location.city + location.country + location.continent);
+    }
 })()
+

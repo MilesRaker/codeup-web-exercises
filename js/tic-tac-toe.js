@@ -7,12 +7,14 @@ let icon_X = "X" //'<i className="fa-solid fa-x"></i>';
 let icon_O = "O" //'<i className="fa-solid fa-o"></i>';
 let nextIconX = null;
 let turnsPlayed = 0;
+let onePlayer = true;
+let freezeBoard = false;
 
 // ----------- Link html elements -----------
 let gameGridButtons = document.getElementsByClassName("grid-button");
 let startButton = document.getElementById("startButton");
 let textOutput = document.getElementById("textOutput");
-let freezeBoard = false;
+let gameType = document.getElementById("gameType");
 
 // ----------- Create Initial State -----------
 window.onload = startNewGame;
@@ -25,12 +27,52 @@ for (let gameGridButton of gameGridButtons) {
 }
 
 startButton.addEventListener('click', startNewGame);
-
+gameType.addEventListener("click", setGameType);
 
 // ----------- Functions -----------
-function placeMark(){
-    if(this.innerHTML == "" && !freezeBoard){
 
+/*function turn(){
+    if(this.innerHTML === "" && !freezeBoard) {
+        /!*if 1 player, use onePlayerTurn(), if 2 player use twoPlayerTurn*!/
+        if (onePlayer) {
+            onePlayerTurn(this);
+        } else {
+            twoPlayerTurn(this);
+        }
+    }
+};
+
+function onePlayerTurn(){
+
+};
+
+function twoPlayerTurn(){
+        placeMark();
+        setTurnData();
+
+        let winnerData = determineWinner();
+        if(winnerData[0]){
+            setTextOutput(`The winner is: ` + winnerData[1])
+            freezeBoard = true;
+            return;
+        }
+        setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+
+
+};
+
+function setTurnData(){
+    if(startButton.innerHTML == "Start"){
+        startButton.innerHTML = "Restart";
+    }
+
+    nextIconX = !nextIconX;
+    turnsPlayed++;
+}*/
+
+function placeMark(){
+
+    if(this.innerHTML == "" && !freezeBoard){
         if(nextIconX){
             this.innerHTML = icon_X;
         } else {
@@ -48,12 +90,56 @@ function placeMark(){
             setTextOutput(`The winner is: ` + winnerData[1])
             freezeBoard = true;
             return;
+        } else if(turnsPlayed == 9){
+            setTextOutput(`Draw`)
+            freezeBoard = true;
+            return;
         }
         setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+        if(onePlayer){
+            AITurn();
+        }
     }
 }
 
+function AITurn(){
+    let currentState = gameState();
+    let markPlaced = false;
+    do{
+        let randomSquare = Math.floor(Math.random()*8);
+        if(currentState[randomSquare] == ""){
+            if(nextIconX){
+                gameGridButtons[randomSquare].innerHTML = icon_X;
+            } else {
+                gameGridButtons[randomSquare].innerHTML = icon_O;
+            }
+            markPlaced = true;
+        }
+    } while(!markPlaced)
+
+    nextIconX = !nextIconX;
+    turnsPlayed++;
+    let winnerData = determineWinner();
+    if(winnerData[0]){
+        setTextOutput(`The winner is: ` + winnerData[1])
+        freezeBoard = true;
+        return;
+    }
+    setTextOutput(`Turn: ${nextIconX?"X":"O"}`);
+}
 // Game Control Buttons
+
+function setGameType(){
+
+    if(gameType.innerHTML == "1-Player"){
+        gameType.innerHTML = "2-Player";
+        onePlayer = false;
+    } else if(gameType.innerHTML == "2-Player"){
+        gameType.innerHTML = "1-Player";
+        onePlayer = true;
+    }
+    console.log(onePlayer);
+}
 
 function startNewGame(){
     for(let gameGridButton of gameGridButtons){
@@ -77,17 +163,22 @@ function randTrueFalse(){
     return (Math.random() >= 0.5 )? true:false;
 }
 
-function determineWinner(){
+function gameState(){
     let gameMatrix = [];
+    for (let i = 0; i < gameGridButtons.length; i++) {
+        gameMatrix[i] = gameGridButtons[i].innerHTML;
+    }
+    return gameMatrix;
+}
+
+function determineWinner(){
+    let gameMatrix = gameState()
     let winnerExists = false;
     let winner = "";
     // gameGridButtons.forEach((button, index ) => function(){
     //     gameMatrix[index] = button.innerHTML == "X"? true : false;
     // })
 
-    for (let i = 0; i < gameGridButtons.length; i++) {
-        gameMatrix[i] = gameGridButtons[i].innerHTML;
-    }
     console.log(gameMatrix);
     // TODO: Refactor if else section
     if( gameMatrix[0] == "X" && gameMatrix[1] == "X" && gameMatrix[2] == "X") {
@@ -143,6 +234,5 @@ function determineWinner(){
         winner = "";
     }
 
-console.log([winnerExists, winner]);
     return [winnerExists, winner]
 }
