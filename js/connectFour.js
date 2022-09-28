@@ -17,7 +17,10 @@ let column7 = document.getElementsByClassName("c-7");
 let images = document.getElementsByClassName("button-img");
 /* Assign Event Listeners */
 newGameButton.addEventListener("click", newGame);
-
+for(let button of buttons){
+    button.addEventListener("mouseover", highlightColumn);
+    button.addEventListener("mouseleave", deHighlightColumn);
+}
 /* Initialize Page */
 newGame();
 
@@ -48,4 +51,56 @@ function displayTurnIcon(){
     } else {
         turnIcon.src = `img/heart-svgrepo-com.svg`
     }
+}
+
+function selectActiveColumn(event){
+    let currentColumnNumber = parseInt(event.currentTarget.id.slice(-1), 10);
+    let currentColumn;
+
+    switch(currentColumnNumber){
+        case 1:
+            currentColumn = column1;
+            break;
+        case 2:
+            currentColumn = column2;
+            break;
+        case 3:
+            currentColumn = column3;
+            break;
+        case 4:
+            currentColumn = column4;
+            break;
+        case 5:
+            currentColumn = column5;
+            break;
+        case 6:
+            currentColumn = column6;
+            break;
+        case 7:
+            currentColumn = column7;
+            break;
+    }
+    return currentColumn
+}
+
+function highlightColumn(event){
+
+    let currentColumn = selectActiveColumn(event);
+
+    for(let square of currentColumn){
+        square.style = "background-color: #848487;"
+    }
+}
+
+function deHighlightColumn(event){
+    let currentColumn = selectActiveColumn(event);
+
+    for(let square of currentColumn){
+        square.style = "";
+    }
+}
+
+function testFunc(event){
+    console.log("hello from testFunc: " + event.currentTarget.id);
+    return;
 }
