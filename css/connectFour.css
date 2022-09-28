@@ -9,10 +9,15 @@
     gap: 1px 1px;
 }
 
-/*.gameButton:hover {*/
+.gameButton:hover {
+    background-color: #848487;
+}
+
+/*.c-1:hover{*/
 /*    background-color: #848487;*/
 /*}*/
 
-.c-1:hover{
-    background-color: #848487;
+#turnIcon {
+    max-width: 50px;
+    max-height: 50px;
 }
