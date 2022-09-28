@@ -1,10 +1,17 @@
 "use strict";
 
+/* TODO:
+*   - check if winner after each move
+*   - highlight winning squares
+*   - computer opponent
+*/
+
 /* initialize variables */
 let diamondTurn;
 let diamondSrc = `img/diamond-svgrepo-com.svg`;
 let heartSrc = `img/heart-svgrepo-com.svg`;
 let emptySquare = `img/emptySquare.svg`;
+let gameGrid = []
 
 
 /* get elements */
@@ -47,6 +54,14 @@ function newGame(){
     displayTurnIcon();
 
     /* reset board */
+    gameGrid = [
+        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
+        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
+        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
+        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
+        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
+        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",]
+]
     for(let image of images){
         image.marked = false;
         image.src = emptySquare;
@@ -119,44 +134,127 @@ function deHighlightColumn(event){
 function clickColumn(event){
 //    place mark on lowest row of current column
 
-    let currentColumnNumber = parseInt(event.currentTarget.id.slice(-1), 10);
-    let currentImgColumn;
+    let rowCol = [parseInt(event.currentTarget.id.slice(-3), 10), parseInt(event.currentTarget.id.slice(-1), 10) ];
+    console.log("You clicked on square: " + rowCol[0] + " " + rowCol[1]);
 
-    switch(currentColumnNumber){
-        case 1:
-            currentImgColumn = imgColumn1;
+    console.log("returned grid image: " + returnGridImage(rowCol).id);
+    // console.log(currentImg.id);
+
+    // switch(currentColumnNumber){
+    //     case 1:
+    //         currentImgColumn = imgColumn1;
+    //         break;
+    //     case 2:
+    //         currentImgColumn = imgColumn2;
+    //         break;
+    //     case 3:
+    //         currentImgColumn = imgColumn3;
+    //         break;
+    //     case 4:
+    //         currentImgColumn = imgColumn4;
+    //         break;
+    //     case 5:
+    //         currentImgColumn = imgColumn5;
+    //         break;
+    //     case 6:
+    //         currentImgColumn = imgColumn6;
+    //         break;
+    //     case 7:
+    //         currentImgColumn = imgColumn7;
+    //         break;
+    // }
+    //
+    // for (let i = currentImgColumn.length - 1; i >= 0; i--){
+    //     if(currentImgColumn[i].marked === false){
+    //         currentImgColumn[i].src = diamondTurn ? diamondSrc : heartSrc; //location of current icon
+    //         currentImgColumn[i].marked = true;
+    //         diamondTurn = !diamondTurn;
+    //         displayTurnIcon();
+    //         return;
+    //     }
+    // }
+
+
+}
+
+function returnGridImage(xy){
+
+    switch(xy[0]){
+        case 1 :
+            switch(xy[1]){
+                case 1 : return images[0];
+                case 2 : return images[1];
+                case 3 : return images[2];
+                case 4 : return images[3];
+                case 5 : return images[4];
+                case 6 : return images[5];
+                case 7 : return images[6];
+            }
             break;
-        case 2:
-            currentImgColumn = imgColumn2;
+        case 2 :
+            switch(xy[1]){
+                case 1 : return images[7];
+                case 2 : return images[8];
+                case 3 : return images[9];
+                case 4 : return images[10];
+                case 5 : return images[11];
+                case 6 : return images[12];
+                case 7 : return images[13];
+            }
             break;
-        case 3:
-            currentImgColumn = imgColumn3;
+        case 3 :
+            switch(xy[1]){
+                case 1 : return images[14];
+                case 2 : return images[15];
+                case 3 : return images[16];
+                case 4 : return images[17];
+                case 5 : return images[18];
+                case 6 : return images[19];
+                case 7 : return images[20];
+            }
             break;
-        case 4:
-            currentImgColumn = imgColumn4;
+
+        case 4 :
+            switch(xy[1]){
+                case 1 : return images[21];
+                case 2 : return images[22];
+                case 3 : return images[23];
+                case 4 : return images[24];
+                case 5 : return images[25];
+                case 6 : return images[26];
+                case 7 : return images[27];
+            }
             break;
-        case 5:
-            currentImgColumn = imgColumn5;
+
+        case 5 :
+            switch(xy[1]){
+                case 1 : return images[28];
+                case 2 : return images[29];
+                case 3 : return images[30];
+                case 4 : return images[31];
+                case 5 : return images[32];
+                case 6 : return images[33];
+                case 7 : return images[34];
+            }
             break;
+
         case 6:
-            currentImgColumn = imgColumn6;
-            break;
-        case 7:
-            currentImgColumn = imgColumn7;
+            switch(xy[1]){
+                case 1 : return images[35];
+                case 2 : return images[36];
+                case 3 : return images[37];
+                case 4 : return images[38];
+                case 5 : return images[39];
+                case 6 : return images[40];
+                case 7 : return images[41];
+            }
             break;
     }
+}
 
-    for (let i = currentImgColumn.length - 1; i >= 0; i--){
-
-
-        if(currentImgColumn[i].marked === false){
-            currentImgColumn[i].src = diamondTurn ? diamondSrc : heartSrc; //location of current icon
-            currentImgColumn[i].marked = true;
-            diamondTurn = !diamondTurn;
-            return;
-        }
-    }
-
+function checkForWinner(lastImgPlaced){
+/* Win Conditions:
+*  */
 }
 
 function testFunc(event){
