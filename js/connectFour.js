@@ -6,35 +6,23 @@
 *   - computer opponent
 */
 
+/* Key:
+*  gameGrid: 0 => empty, 1 => diamond, 2 => heart
+* */
 /* initialize variables */
 let diamondTurn;
 let diamondSrc = `img/diamond-svgrepo-com.svg`;
 let heartSrc = `img/heart-svgrepo-com.svg`;
 let emptySquare = `img/emptySquare.svg`;
-let gameGrid = []
+let gameGrid = new Array(6).fill(0).map(() => new Array(7).fill(0));
 
 
 /* get elements */
 let turnIcon = document.getElementById("turnIcon");
 let newGameButton = document.getElementById("newGame");
-
 let buttons = document.getElementsByClassName("gameButton");
-let column1 = document.getElementsByClassName("c-1");
-let column2 = document.getElementsByClassName("c-2");
-let column3 = document.getElementsByClassName("c-3");
-let column4 = document.getElementsByClassName("c-4");
-let column5 = document.getElementsByClassName("c-5");
-let column6 = document.getElementsByClassName("c-6");
-let column7 = document.getElementsByClassName("c-7");
-
 let images = document.getElementsByClassName("button-img");
-let imgColumn1 = document.getElementsByClassName("img-c-1");
-let imgColumn2 = document.getElementsByClassName("img-c-2");
-let imgColumn3 = document.getElementsByClassName("img-c-3");
-let imgColumn4 = document.getElementsByClassName("img-c-4");
-let imgColumn5 = document.getElementsByClassName("img-c-5");
-let imgColumn6 = document.getElementsByClassName("img-c-6");
-let imgColumn7 = document.getElementsByClassName("img-c-7");
+
 
 /* Assign Event Listeners */
 newGameButton.addEventListener("click", newGame);
@@ -54,18 +42,12 @@ function newGame(){
     displayTurnIcon();
 
     /* reset board */
-    gameGrid = [
-        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
-        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
-        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
-        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
-        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",],
-        ["empty", "empty", "empty", "empty", "empty", "empty", "empty",]
-]
-    for(let image of images){
-        image.marked = false;
-        image.src = emptySquare;
-    }
+    gameGrid = new Array(6).fill(0).map(() => new Array(7).fill(0));
+    // for(let image of images){
+    //     image.marked = false;
+    //     image.src = emptySquare;
+    // }
+    mapGameGridToImages();
 }
 
 function diamondGoesFirst(){
@@ -82,6 +64,29 @@ function displayTurnIcon(){
     } else {
         turnIcon.src = heartSrc;
     }
+}
+function mapGameGridToImages(){
+
+    console.log(gameGrid);
+    let x = 0; // iterator for images
+    for(let i = 0; i < 7; i++){
+        for(let j = 0; j < 6; j++){
+            switch(gameGrid[j][i]){
+                case 0:
+                    images[x].src = emptySquare;
+                    break;
+                case 1:
+                    images[x].src = diamondSrc;
+                    break;
+                case 2:
+                    images[x].src = heartSrc;
+                    break;
+            }
+            x++;
+        }
+    }
+
+
 }
 
 function selectActiveColumn(event){
@@ -135,34 +140,8 @@ function clickColumn(event){
 //    place mark on lowest row of current column
 
     let rowCol = [parseInt(event.currentTarget.id.slice(-3), 10), parseInt(event.currentTarget.id.slice(-1), 10) ];
-    console.log("You clicked on square: " + rowCol[0] + " " + rowCol[1]);
 
-    console.log("returned grid image: " + returnGridImage(rowCol).id);
-    // console.log(currentImg.id);
 
-    // switch(currentColumnNumber){
-    //     case 1:
-    //         currentImgColumn = imgColumn1;
-    //         break;
-    //     case 2:
-    //         currentImgColumn = imgColumn2;
-    //         break;
-    //     case 3:
-    //         currentImgColumn = imgColumn3;
-    //         break;
-    //     case 4:
-    //         currentImgColumn = imgColumn4;
-    //         break;
-    //     case 5:
-    //         currentImgColumn = imgColumn5;
-    //         break;
-    //     case 6:
-    //         currentImgColumn = imgColumn6;
-    //         break;
-    //     case 7:
-    //         currentImgColumn = imgColumn7;
-    //         break;
-    // }
     //
     // for (let i = currentImgColumn.length - 1; i >= 0; i--){
     //     if(currentImgColumn[i].marked === false){
@@ -173,8 +152,18 @@ function clickColumn(event){
     //         return;
     //     }
     // }
+    console.log("rowCol: " + rowCol);
+    console.log("testing gameGrid before: " + gameGrid[rowCol[0]][rowCol[1]]);
+    for (let i = 6; i > 0; i--){
 
-
+        if(gameGrid[rowCol[1]][i] === "empty"){
+            gameGrid[rowCol[1]][i]  = diamondTurn ? "diamond" : "heart";
+            // let imgToSet = returnGridImage([i,1]);
+            // imgToSet.src = diamondTurn ? diamondSrc : heartSrc;
+            break;
+        }
+    }
+    console.log("testing gameGrid after: " + gameGrid);
 }
 
 function returnGridImage(xy){
