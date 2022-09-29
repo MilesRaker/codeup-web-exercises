@@ -1,6 +1,8 @@
 "use strict";
 // TODO:
 // add opponent AI for 1 player mode
+// timers
+// animations
 
 // ---- Initialize data arrays ----
 let gameData = new Array(6).fill(0).map(() => new Array(7).fill(0));
@@ -9,7 +11,7 @@ let buttons = new Array(6).fill(0).map(() => new Array(7).fill(0));
 let srcLocations = [`img/emptySquare.svg`, `img/diamond-svgrepo-com.svg`, `img/heart-svgrepo-com.svg`];
 let diamondTurn;
 let turnIcon = document.getElementById("turnIcon");
-let gameOver = false;
+let freezeBoard = false;
 let winP = document.getElementById("winner");
 let newGameHolder = document.getElementById("newGame");
 let numPlayersButton = document.getElementById("numPlayers");
@@ -38,9 +40,12 @@ function newGame(){
     mapImages();
     diamondTurn = Math.random() > 0.5;
     displayTurnIcon();
+    winP.innerHTML = "";
+    freezeBoard = false;
 }
 
 newGame();
+
 
 // ---- Functions ----
 function clearStyles(){
@@ -56,7 +61,7 @@ function displayTurnIcon(){
 }
 
 function hover(event){
-    if(!gameOver) {
+    if(!freezeBoard) {
         let j = parseInt(event.currentTarget.id.slice(-1), 10);
 
         for (let i = 0; i < 6; i++) {
@@ -66,7 +71,7 @@ function hover(event){
 }
 
 function endHover(event){
-    if(!gameOver) {
+    if(!freezeBoard) {
         let j = parseInt(event.currentTarget.id.slice(-1), 10);
         for (let i = 0; i < 6; i++) {
             buttons[i][j].style = "";
@@ -83,15 +88,15 @@ function mapImages(){
 }
 
 function placeToken(event){
-    if(!gameOver) {
+    if(!freezeBoard) {
         let j = parseInt(event.currentTarget.id.slice(-1), 10);
         let i;
         [i, j] = placeInLowestRow(j);
 
         mapAndCheck(i, j);
 
-        if(onePlayerMode){
-            C4AITurn();
+        if(onePlayerMode && !freezeBoard){
+            setTimeout(C4AITurn, 1000);
         }
     }
 }
@@ -252,13 +257,16 @@ function checkDiagonal2(i, j){
 }
 
 function celebrateWinner(winData){
-    gameOver = true;
+    freezeBoard = true;
     winP.innerHTML = `${diamondTurn?"Diamond" : "Heart"} is the winner!`
+    clearStyles();
     for(let x = 1; x < 5; x++){
         let i = winData[x][0];
         let j = winData[x][1];
         buttons[i][j].style = "border: red solid 2px"
     }
+
+
 }
 
 function checkDraw(){
@@ -273,7 +281,7 @@ function checkDraw(){
 }
 
 function celebrateDraw(){
-    gameOver = true;
+    freezeBoard = true;
     winP.innerHTML = "All game squares are filled. Match ended in a DRAW."
 }
 
