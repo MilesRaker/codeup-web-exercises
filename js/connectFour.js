@@ -1,7 +1,6 @@
 "use strict";
 // TODO:
 // add opponent AI for 1 player mode
-// timers
 // animations
 
 // ---- Initialize data arrays ----
@@ -96,12 +95,14 @@ function placeToken(event){
         mapAndCheck(i, j);
 
         if(onePlayerMode && !freezeBoard){
+            freezeBoard = true;
             setTimeout(C4AITurn, 1000);
         }
     }
 }
 
 function C4AITurn(){
+    freezeBoard = true;
     let j = Math.floor(Math.random()*6);
     let i;
     [i, j] = placeInLowestRow(j);
@@ -119,6 +120,7 @@ function mapAndCheck(i, j){
     if(drawCheck){
         celebrateDraw();
     }
+    freezeBoard = false;
     nextTurn();
 }
 
