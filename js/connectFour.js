@@ -26,8 +26,7 @@ let gameOver = false;
 function newGame(){
     gameData = new Array(6).fill(0).map(() => new Array(7).fill(0));
     mapImages();
-    diamondTurn = Math.random() > 0.5 ? true : false;
-    console.log("diamondTurn in initialize game board: " + diamondTurn);
+    diamondTurn = Math.random() > 0.5;
     displayTurnIcon();
 }
 
@@ -62,18 +61,25 @@ function mapImages(){
 }
 
 function placeToken(event){
-    let j = parseInt(event.currentTarget.id.slice(-1), 10);
-    for(let i = 5; i >= 0; i--){
-        if(gameData[i][j]===0){
-            gameData[i][j]=diamondTurn? 1 : 2;
-            mapImages();
-            let winCheck = checkWinner(i, j);
-            console.log(`winCheck bool: ${winCheck[0]}`);
-            if(winCheck[0]){
-                celebrateWinner(winCheck);
+    if(!gameOver) {
+        let j = parseInt(event.currentTarget.id.slice(-1), 10);
+        for (let i = 5; i >= 0; i--) {
+            if (gameData[i][j] === 0) {
+                gameData[i][j] = diamondTurn ? 1 : 2;
+                mapImages();
+                let winCheck = checkWinner(i, j);
+
+                if (winCheck[0]) {
+                    celebrateWinner(winCheck);
+                    return;
+                }
+                let drawCheck = checkDraw();
+                if(drawCheck){
+                    celebrateDraw();
+                }
+                nextTurn();
+                return;
             }
-            nextTurn();
-            return;
         }
     }
 }
@@ -208,6 +214,22 @@ function celebrateWinner(winData){
     console.log(`${diamondTurn?"Diamond" : "Heart"} is the winner!`);
 }
 
+function checkDraw(){
+    for(let i = 0; i < 6; i++){
+        for(let j = 0; j < 7; j++){
+            console.log(`checking data of gameData: ${gameData[i][j]}`);
+            if(gameData[i][j] === 0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function celebrateDraw(){
+    gameOver = true;
+    console.log("All game squares are filled. Match ended in a DRAW.")
+}
 /*
 "use strict";
 
