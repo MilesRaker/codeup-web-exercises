@@ -161,13 +161,32 @@ function returnBookStatus(array){
     // example input: [{ city: 'Tokyo', country: 'Japan' }, { city: 'Bangkok', country: 'Thailand' }], 'Asia'
     // expected output: [{ city: 'Tokyo', country: 'Japan', continent: 'Asia' }, { city: 'Bangkok', country: 'Thailand', continent: 'Asia' }]*/
 
-    function addContinent(locationArray, continentString){
-        let outputArray = locationArray
-        outputArray.map(location =>{
-            location["continent"] = continentString
-        })
-        return outputArray;
+    // function addContinent(locationArray, continentString){
+    //     let outputArray = locationArray
+    //     outputArray.map(location =>{
+    //         location["continent"] = continentString
+    //     })
+    //     return outputArray;
+    // }
+
+    function addContinent(arrayOfObject, someString){
+        for(let i = 0; i < arrayOfObject.length; i++){
+            arrayOfObject[i].continent = someString;
+        }
+        return arrayOfObject;
     }
+
+    let someObject = {
+        city : "Tokyo",
+        country : "Japan"
+    }
+
+    someObject.continent = "Asia";
+    console.log(`someObject: ${someObject.city} ${someObject.country} ${someObject.continent}`)
+
+    someObject.catsInMyHouse = function(){return 3};
+
+    console.log(`someObject: ${someObject.city} ${someObject.country} ${someObject.continent} ${someObject.catsInMyHouse()}`)
 
     console.log(addContinent([{ city: 'Tokyo', country: 'Japan' }, { city: 'Bangkok', country: 'Thailand' }], 'Asia'))
 })()
