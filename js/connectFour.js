@@ -14,21 +14,25 @@ let diamondTurn;
 let diamondSrc = `img/diamond-svgrepo-com.svg`;
 let heartSrc = `img/heart-svgrepo-com.svg`;
 let emptySquare = `img/emptySquare.svg`;
-let gameGrid = new Array(6).fill(0).map(() => new Array(7).fill(0));
+let gameGrid = new Array(7).fill(0).map(() => new Array(6).fill(0));
 
 
 /* get elements */
 let turnIcon = document.getElementById("turnIcon");
 let newGameButton = document.getElementById("newGame");
 let buttons = document.getElementsByClassName("gameButton");
-let images = document.getElementsByClassName("button-img");
+// let images = document.getElementsByClassName("button-img");
 
+let images = initializeImages();
+
+
+console.log("images: " + images);
 
 /* Assign Event Listeners */
 newGameButton.addEventListener("click", newGame);
 for(let button of buttons){
-    button.addEventListener("mouseover", highlightColumn);
-    button.addEventListener("mouseleave", deHighlightColumn);
+    // button.addEventListener("mouseover", highlightColumn);
+    // button.addEventListener("mouseleave", deHighlightColumn);
     button.addEventListener("click", clickColumn);
 }
 /* Initialize Page */
@@ -69,9 +73,9 @@ function mapGameGridToImages(){
 
     console.log(gameGrid);
     let x = 0; // iterator for images
-    for(let i = 0; i < 7; i++){
-        for(let j = 0; j < 6; j++){
-            switch(gameGrid[j][i]){
+    for(let i = 0; i < 6; i++){
+        for(let j = 0; j < 7; j++){
+            switch(gameGrid[i][j]){
                 case 0:
                     images[x].src = emptySquare;
                     break;
@@ -82,6 +86,7 @@ function mapGameGridToImages(){
                     images[x].src = heartSrc;
                     break;
             }
+            console.log(gameGrid[j][i]);
             x++;
         }
     }
@@ -139,30 +144,19 @@ function deHighlightColumn(event){
 function clickColumn(event){
 //    place mark on lowest row of current column
 
-    let rowCol = [parseInt(event.currentTarget.id.slice(-3), 10), parseInt(event.currentTarget.id.slice(-1), 10) ];
+    let row = parseInt(event.currentTarget.id.slice(-3), 10);
+    let col = parseInt(event.currentTarget.id.slice(-1), 10);
 
+    console.log("rowCol: " + row + " " + col);
 
-    //
-    // for (let i = currentImgColumn.length - 1; i >= 0; i--){
-    //     if(currentImgColumn[i].marked === false){
-    //         currentImgColumn[i].src = diamondTurn ? diamondSrc : heartSrc; //location of current icon
-    //         currentImgColumn[i].marked = true;
-    //         diamondTurn = !diamondTurn;
-    //         displayTurnIcon();
-    //         return;
-    //     }
-    // }
-    console.log("rowCol: " + rowCol);
-    console.log("testing gameGrid before: " + gameGrid[rowCol[0]][rowCol[1]]);
-    for (let i = 6; i > 0; i--){
+    for (let row = 5; row >= 0; row--){
 
-        if(gameGrid[rowCol[1]][i] === "empty"){
-            gameGrid[rowCol[1]][i]  = diamondTurn ? "diamond" : "heart";
-            // let imgToSet = returnGridImage([i,1]);
-            // imgToSet.src = diamondTurn ? diamondSrc : heartSrc;
+        if(gameGrid[row][col - 1] == 0){
+            gameGrid[row][col - 1]  = diamondTurn ? 1 : 2;
             break;
         }
     }
+    mapGameGridToImages();
     console.log("testing gameGrid after: " + gameGrid);
 }
 
@@ -246,6 +240,60 @@ function checkForWinner(lastImgPlaced){
 *  */
 }
 
+function initializeImages(){
+    let images = [];
+    // column 1
+    images.push(document.getElementById("img-1-1"));
+    images.push(document.getElementById("img-2-1"));
+    images.push(document.getElementById("img-3-1"));
+    images.push(document.getElementById("img-4-1"));
+    images.push(document.getElementById("img-5-1"));
+    images.push(document.getElementById("img-6-1"));
+
+    // column 2
+    images.push(document.getElementById("img-1-2"));
+    images.push(document.getElementById("img-2-2"));
+    images.push(document.getElementById("img-3-2"));
+    images.push(document.getElementById("img-4-2"));
+    images.push(document.getElementById("img-5-2"));
+    images.push(document.getElementById("img-6-2"));
+
+    // column 3
+    images.push(document.getElementById("img-1-3"));
+    images.push(document.getElementById("img-2-3"));
+    images.push(document.getElementById("img-3-3"));
+    images.push(document.getElementById("img-4-3"));
+    images.push(document.getElementById("img-5-3"));
+    images.push(document.getElementById("img-6-3"));
+
+
+    // column 4
+    images.push(document.getElementById("img-1-4"));
+    images.push(document.getElementById("img-2-4"));
+    images.push(document.getElementById("img-3-4"));
+    images.push(document.getElementById("img-4-4"));
+    images.push(document.getElementById("img-5-4"));
+    images.push(document.getElementById("img-6-4"));
+
+
+    // column 5
+    images.push(document.getElementById("img-1-5"));
+    images.push(document.getElementById("img-2-5"));
+    images.push(document.getElementById("img-3-5"));
+    images.push(document.getElementById("img-4-5"));
+    images.push(document.getElementById("img-5-5"));
+    images.push(document.getElementById("img-6-5"));
+
+
+    // column 6
+    images.push(document.getElementById("img-1-6"));
+    images.push(document.getElementById("img-2-6"));
+    images.push(document.getElementById("img-3-6"));
+    images.push(document.getElementById("img-4-6"));
+    images.push(document.getElementById("img-5-6"));
+    images.push(document.getElementById("img-6-6"));
+
+}
 function testFunc(event){
     console.log("hello from testFunc: " + event.currentTarget.id);
     return;
