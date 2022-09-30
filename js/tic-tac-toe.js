@@ -1,5 +1,73 @@
 "use strict"
 
+// ----------- Initialize variables
+let gameData = new Array(3).fill(0).map(() => new Array(3).fill(0));
+let gameSquares = new Array(3).fill(0).map(() => new Array(3).fill(0));
+let gameButtons = new Array(3).fill(0).map(() => new Array(3).fill(0));
+let xTurn = randomBool();
+let onePlayer = true;
+let freezeBoard = false;
+
+// ----------- Link html elements -----------
+
+for(let i = 0; i < 3; i++){
+    for(let j = 0; j < 3; j++){
+        gameSquares[i][j] = document.getElementById(`gs-${i}-${j}`);
+        gameButtons[i][j] = document.getElementById(`btn-${i}-${j}`);
+    }
+}
+
+let startButton = document.getElementById("startButton");
+let numPlayersButton = document.getElementById("numPlayers");
+let textOutput = document.getElementById("textOutput");
+
+// ----------- Event Listeners -----------
+
+for(let i = 0; i < 3; i ++){
+    for(let j = 0; j < 3; j++){
+        gameButtons[i][j].addEventListener("click", placeMark);
+    }
+}
+
+// ----------- Create Initial State -----------
+newGame();
+
+
+// ----------- Functions -----------
+function newGame(){
+    gameData = new Array(3).fill(0).map(() => new Array(3).fill(0));
+    for(let square of gameSquares){
+        square.style = "";
+    }
+    xTurn = randomBool();
+    renderText(`Turn: ${xTurn? "X" : "O"}`)
+}
+
+function randomBool(){
+    return Math.random() > 0.50;
+}
+
+function renderText(input){
+    textOutput.innerHTML = input;
+}
+
+function placeMark(event){
+    if(!freezeBoard) {
+
+        let i = event.target.id.slice(-3,-2);
+        let j = event.target.id.slice(-1);
+
+        gameData[i][j] = xTurn ? 1 : 2;
+        console.log(gameData);
+        xTurn = !xTurn;
+        renderText(`Turn: ${xTurn? "X" : "O"}`);
+        if (onePlayer) {
+            //freezeBoard = true;
+        }
+    }
+}
+/*
+
 // TODO: Multiple AI levels
 
 // ----------- Initialize variables
@@ -201,4 +269,4 @@ function determineWinner(){
     }
 
     return [winnerExists, winner]
-}
+}*/
