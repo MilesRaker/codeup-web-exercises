@@ -189,5 +189,21 @@ function returnBookStatus(array){
     console.log(`someObject: ${someObject.city} ${someObject.country} ${someObject.continent} ${someObject.catsInMyHouse()}`)
 
     console.log(addContinent([{ city: 'Tokyo', country: 'Japan' }, { city: 'Bangkok', country: 'Thailand' }], 'Asia'))
-})()
 
+
+    // ---------------- warm up 3 October 2022 -------------------
+    // re-write the following using a for loop: var i = 20; while (i >= 0) { console.log(i); i--; }
+
+    console.log("3OCT Q1: \n");
+    for(let i = 20; i >= 0; i--){
+        console.log(i);
+    }
+
+    // Add ‘strawberry’ to the beginning, middle, and end of the array.
+    let fruits = ["mango", "blueberries", "oranges", "banana", "papaya", "kiwi"];
+
+    fruits.push("strawberry"); // add to end of array
+    fruits.unshift("strawberry"); // add to start of array
+    fruits.splice(Math.floor(fruits.length / 2), 0, "strawberry"); // add to middle of array
+    console.log("3OCT Q2: \n" + fruits);
+})()

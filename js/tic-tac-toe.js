@@ -45,9 +45,12 @@ function numPlayerEvent(){
 }
 
 function newGame(){
+    freezeBoard = false;
     gameData = new Array(3).fill(0).map(() => new Array(3).fill(0));
-    for(let square of gameSquares){
-        square.style = "";
+    for(let i = 0; i < 3; i++){
+        for(let j = 0; j < 3; j++){
+            gameSquares[i][j].style = "";
+        }
     }
     xTurn = randomBool();
     renderText(`Turn: ${xTurn? "X" : "O"}`)
@@ -71,6 +74,11 @@ function placeMark(event){
         gameData[i][j] = xTurn ? 1 : 2;
         renderGameState();
         console.log(gameData);
+        let winData = checkForWinner(i, j);
+        if(winData[0]){
+            celebrateWin(winData);
+            return;
+        }
         xTurn = !xTurn;
         renderText(`Turn: ${xTurn? "X" : "O"}`);
         if (onePlayer) {
@@ -84,6 +92,65 @@ function renderGameState(){
         for(let j = 0; j < 3; j++){
             gameImages[i][j].src = imageArray[gameData[i][j]];
         }
+    }
+}
+
+function checkForWinner(i, j){
+    let currentData = gameData[i][j];
+
+    let winData = checkRow(i, currentData); // boolean
+    if(winData[0]){
+        return winData;
+    }
+    winData = checkColumn(j, currentData); // boolean
+    if(winData[0]){
+        return winData;
+    }
+    winData = checkDiagonal1(currentData); // boolean
+    if(winData[0]){
+        return winData;
+    }
+    winData = checkDiagonal2(currentData); // boolean
+    if(winData[0]){
+        return winData;
+    }
+
+    return [false, [0, 0], [0, 0], [0, 0]];
+}
+
+function checkRow(i, currentData){
+    if(currentData === gameData[i][0] && currentData === gameData[i][1] && currentData === gameData[i][2]){
+        return [true, [i, 0], [i, 1], [i, 2]];
+    }
+    return false;
+}
+
+function checkColumn(j, currentData){
+    if(currentData === gameData[0][j] && currentData === gameData[1][j] && currentData === gameData[2][j]){
+        return [true, [0, j], [1, j], [2, j]];
+    }
+    return false;
+}
+
+function checkDiagonal1(currentData){
+    if(currentData === gameData[2][0] && currentData === gameData[1][1] && currentData === gameData[0][2]){
+        return [true, [2, 0], [1, 1], [0, 2]];
+    }
+    return false;
+}
+
+function checkDiagonal2(currentData){
+    if(currentData === gameData[0][0] && currentData === gameData[1][1] && currentData === gameData[2][2]){
+        return [true, [0, 0], [1, 1], [2, 2]];
+    }
+    return false;
+}
+
+function celebrateWin(winData){
+    freezeBoard = true;
+    renderText(`${gameData[winData[1][0]][winData[1][1]] === 1? "X" : "O"} Wins!`);
+    for(let x = 1; x < 4; x ++) {
+        gameSquares[winData[x][0]][winData[x][1]].style = "border: solid red 1px";
     }
 }
 /*
