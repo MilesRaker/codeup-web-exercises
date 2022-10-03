@@ -31,12 +31,19 @@ for(let i = 0; i < 3; i ++){
         gameButtons[i][j].addEventListener("click", placeMark);
     }
 }
-
+numPlayersButton.addEventListener("click", numPlayerEvent);
+startButton.addEventListener("click", newGame);
 // ----------- Create Initial State -----------
 newGame();
 
 
 // ----------- Functions -----------
+function numPlayerEvent(){
+    onePlayer = !onePlayer;
+    numPlayersButton.innerHTML = `${onePlayer? "1" : "2"}-Player Mode`;
+    newGame();
+}
+
 function newGame(){
     gameData = new Array(3).fill(0).map(() => new Array(3).fill(0));
     for(let square of gameSquares){
