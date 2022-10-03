@@ -70,19 +70,36 @@ function placeMark(event){
 
         let i = event.target.id.slice(-3,-2);
         let j = event.target.id.slice(-1);
+        let playerMarked = false;
 
-        gameData[i][j] = xTurn ? 1 : 2;
+        while(!playerMarked){
+            // if a mark already exists in selected spot, return our put placeMark, still on player's turn
+            if(gameData[i][j] !== 0){
+                return;
+            } else {
+                // if a mark does not exist in selected spot, place player's mark in that spot
+                gameData[i][j] = xTurn ? 1 : 2;
+                playerMarked = true;
+            }
+        }
+
         renderGameState();
-        console.log(gameData);
         let winData = checkForWinner(i, j);
         if(winData[0]){
             celebrateWin(winData);
             return;
+        } else {
+            let draw = checkForDraw()
+            if(draw){
+                celebrateDraw();
+                return;
+            }
         }
         xTurn = !xTurn;
         renderText(`Turn: ${xTurn? "X" : "O"}`);
         if (onePlayer) {
-            //freezeBoard = true;
+            freezeBoard = true;
+            setTimeout(fancyAITurn, 1000);
         }
     }
 }
@@ -93,6 +110,23 @@ function renderGameState(){
             gameImages[i][j].src = imageArray[gameData[i][j]];
         }
     }
+}
+
+function checkForDraw(){
+    // must call after checkForWinner, only if winData[0] === false
+    for(let i = 0; i < 3; i ++){
+        for(let j = 0; j < 3; j++){
+            if (gameData[i][j] === 0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function celebrateDraw(){
+    renderText(`Game Ended in Draw!`);
+    freezeBoard = true;
 }
 
 function checkForWinner(i, j){
@@ -151,6 +185,348 @@ function celebrateWin(winData){
     renderText(`${gameData[winData[1][0]][winData[1][1]] === 1? "X" : "O"} Wins!`);
     for(let x = 1; x < 4; x ++) {
         gameSquares[winData[x][0]][winData[x][1]].style = "border: solid red 1px";
+    }
+}
+
+/*function randomAITurn(){
+// randomAITurn was original AI. Replaced by fancyAITurn
+// randomAITurn may be used for testing
+    let i;
+    let j;
+    do{
+        i = Math.floor(Math.random() * 3);
+        j = Math.floor(Math.random() * 3);
+    } while(gameData[i][j] !== 0)
+    gameData[i][j] = xTurn ? 1 : 2;
+    renderGameState();
+    let winData = checkForWinner(i, j);
+    if(winData[0]){
+        celebrateWin(winData);
+    } else {
+        freezeBoard = false;
+        xTurn = !xTurn;
+        renderText(`Turn: ${xTurn? "X" : "O"}`);
+    }
+}*/
+
+function fancyAITurn(){
+    let aiMark = xTurn ? 1 : 2;
+    let playerMark = xTurn ? 2 : 1;
+    let aiMarkPlaced = false;
+    let count = 0;
+    let ii, jj;
+
+    for(let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if(gameData[i][j] !== 0){
+                count ++
+            }
+        }
+    }
+
+    // AI Turn 1:
+/*    if(count < 2 ){
+        [ii, jj] = placeCenterCornersSides();
+    }*/
+    // AI Turn 2+
+    // if(count > 2)
+
+
+
+        // check columns for potential winning move
+        for(let i = 0; i < 3; i ++){
+            if(gameData[i][0] === aiMark && gameData[i][1] === aiMark && gameData[i][2] === 0){
+                gameData[i][2] = aiMark;
+                ii = i;
+                jj = 2;
+                aiMarkPlaced = true;
+                // render, check for win
+            } else if(gameData[i][0] === aiMark && gameData[i][1] === 0 && gameData[i][2] === aiMark){
+                gameData[i][1] = aiMark;
+                ii = i;
+                jj = 1;
+                aiMarkPlaced = true;
+                // render, check for win
+            } else if(gameData[i][0] === 0 && gameData[i][1] === aiMark && gameData[i][2] === aiMark){
+                gameData[i][0] = aiMark;
+                ii = i;
+                jj = 0;
+                aiMarkPlaced = true;
+                // render, check for win
+            }
+        }
+
+        // check rows for potential winning move
+        if(!aiMarkPlaced){
+            for(let j = 0; j < 3; j ++){
+                if(gameData[0][j] === aiMark && gameData[1][j] === aiMark && gameData[2][j] === 0){
+                    gameData[2][j] = aiMark;
+                    ii = 2;
+                    jj = j;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                } else if(gameData[0][j] === aiMark && gameData[1][j] === 0 && gameData[2][j] === aiMark){
+                    gameData[1][j] = aiMark;
+                    ii = 1;
+                    jj = j;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                } else if(gameData[0][j] === 0 && gameData[1][j] === aiMark && gameData[2][j] === aiMark){
+                    gameData[0][j] = aiMark;
+                    ii = 0;
+                    jj = j;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                }
+            }
+        }
+
+        // check diagonal 1 for potential winning move
+        if(!aiMarkPlaced){
+            if(gameData[0][0] === aiMark && gameData[1][1] === aiMark && gameData[2][2] === 0){
+                gameData[2][2] = aiMark;
+                ii = 2;
+                jj = 2;
+                aiMarkPlaced = true;
+            } else if(gameData[0][0] === aiMark && gameData[1][1] === 0 && gameData[2][2] === aiMark){
+                gameData[1][1] = aiMark;
+                ii = 1;
+                jj = 1;
+                aiMarkPlaced = true;
+            } else if(gameData[0][0] === 0 && gameData[1][1] === aiMark && gameData[2][2] === aiMark){
+                gameData[0][0] = aiMark;
+                ii = 0;
+                jj = 0;
+                aiMarkPlaced = true;
+            }
+        }
+
+        // check diagonal 2 for potential winning move
+        if(!aiMarkPlaced){
+            if(gameData[2][0] === aiMark && gameData[1][1] === aiMark && gameData[0][2] === 0){
+                gameData[0][2] = aiMark;
+                ii = 0;
+                jj = 2;
+                aiMarkPlaced = true;
+            } else if(gameData[2][0] === aiMark && gameData[1][1] === 0 && gameData[0][2] === aiMark){
+                gameData[1][1] = aiMark;
+                ii = 1;
+                jj = 1;
+                aiMarkPlaced = true;
+            } else if(gameData[2][0] === 0 && gameData[1][1] === aiMark && gameData[0][2] === aiMark){
+                gameData[2][0] = aiMark;
+                ii = 2;
+                jj = 0;
+                aiMarkPlaced = true;
+            }
+        }
+
+
+        // check for potential blocking move
+
+        // check columns for potential blocking move
+        if(!aiMarkPlaced){
+            for(let i = 0; i < 3; i ++){
+                if(gameData[i][0] === playerMark && gameData[i][1] === playerMark && gameData[i][2] === 0){
+                    gameData[i][2] = aiMark;
+                    ii = i;
+                    jj = 2;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                } else if(gameData[i][0] === playerMark && gameData[i][1] === 0 && gameData[i][2] === playerMark){
+                    gameData[i][1] = aiMark;
+                    ii = i;
+                    jj = 1;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                } else if(gameData[i][0] === 0 && gameData[i][1] === playerMark && gameData[i][2] === playerMark){
+                    gameData[i][0] = aiMark;
+                    ii = i;
+                    jj = 0;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                }
+            }
+        }
+
+
+        // check rows for potential blocking move
+        if(!aiMarkPlaced){
+            for(let j = 0; j < 3; j ++){
+                if(gameData[0][j] === playerMark && gameData[1][j] === playerMark && gameData[2][j] === 0){
+                    gameData[2][j] = aiMark;
+                    ii = 2;
+                    jj = j;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                } else if(gameData[0][j] === playerMark && gameData[1][j] === 0 && gameData[2][j] === playerMark){
+                    gameData[1][j] = aiMark;
+                    ii = 1;
+                    jj = j;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                } else if(gameData[0][j] === 0 && gameData[1][j] === playerMark && gameData[2][j] === playerMark){
+                    gameData[0][j] = aiMark;
+                    ii = 0;
+                    jj = j;
+                    aiMarkPlaced = true;
+                    // render, check for win
+                }
+            }
+        }
+
+
+        // check diagonal 1 for potential blocking move
+        if(!aiMarkPlaced){
+            if(gameData[0][0] === playerMark && gameData[1][1] === playerMark && gameData[2][2] === 0){
+                gameData[2][2] = aiMark;
+                ii = 2;
+                jj = 2;
+                aiMarkPlaced = true;
+            } else if(gameData[0][0] === playerMark && gameData[1][1] === 0 && gameData[2][2] === playerMark){
+                gameData[1][1] = aiMark;
+                ii = 1;
+                jj = 1;
+                aiMarkPlaced = true;
+            } else if(gameData[0][0] === 0 && gameData[1][1] === playerMark && gameData[2][2] === playerMark){
+                gameData[0][0] = aiMark;
+                ii = 0;
+                jj = 0;
+                aiMarkPlaced = true;
+            }
+        }
+
+
+        // check diagonal 2 for potential blocking move
+        if(!aiMarkPlaced){
+            if(gameData[2][0] === playerMark && gameData[1][1] === playerMark && gameData[0][2] === 0){
+                gameData[0][2] = aiMark;
+                ii = 0;
+                jj = 2;
+                aiMarkPlaced = true;
+            } else if(gameData[2][0] === playerMark && gameData[1][1] === 0 && gameData[0][2] === playerMark){
+                gameData[1][1] = aiMark;
+                ii = 1;
+                jj = 1;
+                aiMarkPlaced = true;
+            } else if(gameData[2][0] === 0 && gameData[1][1] === playerMark && gameData[0][2] === playerMark){
+                gameData[2][0] = aiMark;
+                ii = 2;
+                jj = 0;
+                aiMarkPlaced = true;
+            }
+        }
+
+        // winning move > blocking move > middle > corner > edges
+
+        if(!aiMarkPlaced){
+            [ii, jj] = placeCenterCornersSides();
+        }
+
+
+    renderGameState();
+    let winData = checkForWinner(ii, jj)
+    if(winData[0]){
+        celebrateWin(winData);
+    }else if(checkForDraw()){
+        celebrateDraw();
+    } else {
+        xTurn = !xTurn;
+        renderText(`Turn: ${xTurn === 1? "X" : "O"}`);
+        freezeBoard = false;
+    }
+}
+
+function placeCenterCornersSides() {
+    let aiMark = xTurn ? 1 : 2;
+
+
+    if (gameData[1][1] === 0) {
+        // pick center spot
+        gameData[1][1] = aiMark;
+        return [1, 1]
+    }
+
+    // pick corner spot
+    // try all four corner spots
+    let cornersTried = [];
+    let cornerNumber = 0;
+    while(cornersTried.length < 4){
+        //set cornerNumber to a new corner
+        do{
+            cornerNumber = Math.floor(Math.random() * 3);
+        } while (cornersTried.includes(cornerNumber))
+        cornersTried.push(cornerNumber); // add current corner to list of tried corners
+
+        // attempt to place AIMark
+        switch (cornerNumber) {
+            case 0:
+                if (gameData[0][0] === 0) {
+                    gameData[0][0] = aiMark;
+                    return [0, 0];
+                }
+                break;
+            case 1:
+                if (gameData[0][2] === 0) {
+                    gameData[0][2] = aiMark;
+                    return [0, 2];
+                }
+                break;
+            case 2:
+                if (gameData[2][0] === 0) {
+                    gameData[2][0] = aiMark;
+                    return [2, 0];
+                }
+                break;
+            case 3:
+                if (gameData[2][2] === 0) {
+                    gameData[2][2] = aiMark;
+                    return [2, 2];
+                }
+                break;
+        }
+    }
+
+
+
+    // pick side spot
+    // try all four side spots
+    let sidesTried = [];
+    let sideNumber = 0;
+    while(sidesTried.length < 4) {
+        //set cornerNumber to a new corner
+        do {
+            sideNumber = Math.floor(Math.random() * 3);
+        } while (sidesTried.includes(sideNumber))
+        sidesTried.push(cornerNumber); // add current corner to list of tried corners
+
+        // attempt to place AI mark in side spot
+        switch (sideNumber) {
+            case 0:
+                if (gameData[1][0] === 0) {
+                    gameData[1][0] = aiMark;
+                    return [1, 0];
+                }
+                break;
+            case 1:
+                if (gameData[0][1] === 0) {
+                    gameData[0][1] = aiMark;
+                    return [0, 1];
+                }
+                break;
+            case 2:
+                if (gameData[1][2] === 0) {
+                    gameData[1][2] = aiMark;
+                    return [1, 2];
+                }
+                break;
+            case 3:
+                if (gameData[2][1] === 0) {
+                    gameData[2][1] = aiMark;
+                    return [2, 1];
+                }
+                break;
+        }
     }
 }
 /*
