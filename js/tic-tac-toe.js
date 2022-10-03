@@ -4,9 +4,11 @@
 let gameData = new Array(3).fill(0).map(() => new Array(3).fill(0));
 let gameSquares = new Array(3).fill(0).map(() => new Array(3).fill(0));
 let gameButtons = new Array(3).fill(0).map(() => new Array(3).fill(0));
+let gameImages = new Array(3).fill(0).map(() => new Array(3).fill(0));
 let xTurn = randomBool();
 let onePlayer = true;
 let freezeBoard = false;
+let imageArray = ["img/emptySquare.svg", "img/X.svg", "img/O.svg"]
 
 // ----------- Link html elements -----------
 
@@ -14,6 +16,7 @@ for(let i = 0; i < 3; i++){
     for(let j = 0; j < 3; j++){
         gameSquares[i][j] = document.getElementById(`gs-${i}-${j}`);
         gameButtons[i][j] = document.getElementById(`btn-${i}-${j}`);
+        gameImages[i][j] = document.getElementById(`img-${i}-${j}`);
     }
 }
 
@@ -41,6 +44,7 @@ function newGame(){
     }
     xTurn = randomBool();
     renderText(`Turn: ${xTurn? "X" : "O"}`)
+    renderGameState();
 }
 
 function randomBool(){
@@ -58,11 +62,20 @@ function placeMark(event){
         let j = event.target.id.slice(-1);
 
         gameData[i][j] = xTurn ? 1 : 2;
+        renderGameState();
         console.log(gameData);
         xTurn = !xTurn;
         renderText(`Turn: ${xTurn? "X" : "O"}`);
         if (onePlayer) {
             //freezeBoard = true;
+        }
+    }
+}
+
+function renderGameState(){
+    for(let i = 0; i < 3; i++){
+        for(let j = 0; j < 3; j++){
+            gameImages[i][j].src = imageArray[gameData[i][j]];
         }
     }
 }

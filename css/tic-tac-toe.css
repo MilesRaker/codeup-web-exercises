@@ -31,3 +31,8 @@
 .controllerRow {
     max-width: 300px;
 }
+
+.game-img {
+    max-height: 100%;
+    max-width: 100%;
+}
