@@ -1,0 +1,28 @@
+* {
+    background-color: darkorange;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+@media screen and(max-width: 768px){
+    nav ul{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+/*nav ul li{*/
+/*    justify-self: flex-end;*/
+/*}*/
