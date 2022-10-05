@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>jquery faq</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/jquery_faq.css">
-
-
 </head>
 <body>
   <div>
@@ -44,6 +43,60 @@
     </dl>
     <button id="showAnswers">Show/Hide Answers</button>
   </div>
+
+  <div id="ul-examples">
+    <h3 id="portfolio-heading" class="heading">Portfolio Features</h3>
+    <ul>
+      <li>Resume</li>
+      <li>GitHub and LinkedIn connectivity</li>
+      <li>CodeUp Work examples</li>
+      <li>Personal Projects</li>
+    </ul>
+
+    <h3 id="games-heading" class="heading">Games Created</h3>
+    <ul>
+      <li>Tic Tac Toe</li>
+      <li>Connect Four</li>
+      <li>Checkers (In progress)</li>
+      <li>Tetris (In progress)</li>
+    </ul>
+
+    <h3 id="presentation-heading" class="heading">Presentation Project Features</h3>
+    <ul>
+      <li>Four Year Timeline</li>
+      <li>RV Life</li>
+      <li>Adventure</li>
+      <li>Social Life</li>
+    </ul>
+
+  </div>
+  <div id="list-buttons">
+    <button id="last-li-yellow" class="btn btn-secondary">Make em Yellow!</button>
+
+  </div>
+
+  <!-- Bonus: Photo Frame Swapping-->
+  <h1>Photo Frame Swapping Application</h1>
+  <p>Images were created using the Dall-e 2 prompt: "Humanoid robot in a post-apocalyptic world, contemplating the meaning of life"</p>
+  <div class="container">
+    <div class="row">
+      <div id="container-0" class="col">
+        <img id="frame-0" src="img/AILife0.png" class="frame-img">
+        <button id="swap-0" class="btn btn-primary">Swap</button>
+      </div>
+      <div id="container-1" class="col">
+        <img id="frame-1" src="img/AILife1.png" class="frame-img">
+        <button id="swap-1" class="btn btn-primary">Swap</button>
+      </div>
+      <div id="container-2" class="col">
+        <img id="frame-2" src="img/AILife2.png" class="frame-img">
+        <button id="swap-2" class="btn btn-primary">Swap</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="js/jquery.js"></script>
   <script src="js/jquery_faq.js"></script>
 </body>
