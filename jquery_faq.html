@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery faq</title>
+    <link rel="stylesheet" href="css/jquery_faq.css">
+
+
+</head>
+<body>
+  <div>
+    <h1>FAQ about JQuery</h1>
+    <dl>
+      <dt>How do I change css for all elements of a particular class?</dt>
+      <dd class="invisible">Selector: $(".className") then use .css("styleName", "styleDefinition")</dd>
+
+      <dt>What is .html vs .text?</dt>
+      <dd class="invisible">Differences are similar to innerText vs innerHtml</dd>
+
+      <dt>Does JQuery work with Bootstrap?</dt>
+      <dd class="invisible">Yes. Bootstrap is not written <em>with</em> JQuery, although a developer may implement both Bootstrap and JQuery. Ana, thank you for this answer!</dd>
+
+      <dt>What is JQuery's .css() method?</dt>
+      <dd class="invisible">.css() without arguments is a getter, .css("key","value") sets a new css rule for a JQuery object</dd>
+
+      <dt>What is a JQuery object?</dt>
+      <dd class="invisible">An object created by $("selector") or jquery("selector"). Any JQuery methods may be used on these objects</dd>
+
+      <dt>Why do I want to use JQuery?</dt>
+      <dd class="invisible">JQuery objects and methods are easier to use than document.getElementById() type methods. No need to set event listeners explicitly</dd>
+
+      <dt>How does addClass() work?</dt>
+      <dd class="invisible">jqueryObject.addClass("className") adds a particular class to the selected element. That class can refer to a pre-existing style.</dd>
+
+      <dt>How about .removeClass()?</dt>
+      <dd class="invisible">if a jqueryObject has "className", then remove that class from the element. Effectively removing a style.</dd>
+
+      <dt>...and how about .toggleClass()?</dt>
+      <dd class="invisible">if jqueryObject does not have a class, add it. If it already has that class, remove it. Think: highlight when hovering.</dd>
+
+      <dt>Do I want to use JQuery?</dt>
+      <dd class="invisible">Oh, heck yeah. It will be critical for all kinds of page interactivity.</dd>
+
+    </dl>
+    <button id="showAnswers">Show/Hide Answers</button>
+  </div>
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery_faq.js"></script>
+</body>
+</html>
