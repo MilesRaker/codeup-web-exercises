@@ -16,5 +16,16 @@
             "sugar"
         ],
         "date": "February 14, 2015"
-    }
+    }, {
+    "title": "The Original Post",
+    "content": "Sometimes you just gotta get in there and write something creative. Blog writing has never been a 'thing' for me, but I'm down to give it a try. I've read about folks making <em>money</em> running a blog, suggesting products, and affiliate marketing. Maybe that is the ticket for me. The recent GitHub education pack gives me a handful of free domain names and hosting for a year. I suppose I will use one of those for a blog, maybe another for a drop shipping ecommerce site? The next few months will be an interesting journey.",
+    "categories": [
+        "web-design",
+        "coding",
+        "work-from-home",
+        "affiliate marketing"
+
+    ],
+    "date": "October 6, 2022"
+}
 ]
