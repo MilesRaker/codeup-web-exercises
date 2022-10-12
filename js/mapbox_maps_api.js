@@ -29,6 +29,8 @@ $(`#zoom-20`).click(changeZoom);
 function markPinkDoor(){
     geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result){
         let pinkDoorMarker = new mapboxgl.Marker().setLngLat(result).addTo(map);
+        let pinkDoorPopup = new mapboxgl.Popup().setHTML(`<p>The <em>Pink</em> Door</p>`);
+        pinkDoorMarker.setPopup(pinkDoorPopup);
         map.setCenter(result);
         map.setZoom(15);
     })
@@ -40,11 +42,12 @@ $(`#pinkBtn`).click(markPinkDoor);
 function popupPinkDoor(){
     geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result){
         let pinkDoorMarker = new mapboxgl.Popup().setLngLat(result).setHTML(`<p><em>The Pink Door</em></p>`).addTo(map);
-
     })
 }
 
 $(`#pinkPop`).click(popupPinkDoor);
+
+// set popup to occur when marker is clicked
 
 
 // Helper functions supplied by Codeup:
