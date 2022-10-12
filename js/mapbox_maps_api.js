@@ -34,12 +34,17 @@ function markPinkDoor(){
     })
 }
 
-// map markPinkDoor to button
+// map markPinkDoor to button using that good ole JQuery
 $(`#pinkBtn`).click(markPinkDoor);
 
+function popupPinkDoor(){
+    geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result){
+        let pinkDoorMarker = new mapboxgl.Popup().setLngLat(result).setHTML(`<p><em>The Pink Door</em></p>`).addTo(map);
 
+    })
+}
 
-
+$(`#pinkPop`).click(popupPinkDoor);
 
 
 // Helper functions supplied by Codeup:
