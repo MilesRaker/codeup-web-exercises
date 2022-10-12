@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <title>Mapbox API Exercise</title>
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-    <script src="js/mapbox-geocoder-utils.js"></script>
+
 
 </head>
 <body>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
-<script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDk1cXJoN2QwMG83NDF0YjE1dTg0ZHE3In0.BlEt2KHrnzDjZ7QyUtzFvg';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
-  });
-</script>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <div >
+        <button id="zoom-5" data-zoom="5">Zoom 5</button>
+        <button id="zoom-10" data-zoom="10">Zoom 10</button>
+        <button id="zoom-15" data-zoom="15">Zoom 15</button>
+        <button id="zoom-20" data-zoom="20">Zoom 20</button>
+    </div>
 
 
-<!-- Mapbox API Token: pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDk1cXJoN2QwMG83NDF0YjE1dTg0ZHE3In0.BlEt2KHrnzDjZ7QyUtzFvg -->
+<!--    JS imports-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="js/mapbox_maps_api.js"></script>
+    <script src="js/mapbox-geocoder-utils.js"></script>
+
 </body>
 </html>
