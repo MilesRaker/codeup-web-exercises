@@ -1,19 +1,22 @@
 "use strict"
 
+// create map in map div
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDk1cXJoN2QwMG83NDF0YjE1dTg0ZHE3In0.BlEt2KHrnzDjZ7QyUtzFvg';
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11'
 });
 
+// Set initial location to "The Pink Door"
 geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result) {
     console.log(result);
     map.setCenter(result);
     map.setZoom(20);
 });
 
+// Zoom function and zoom button mapping
 function changeZoom(btn){
-    console.log(btn.currentTarget.dataset.zoom);
+    // console.log(btn.currentTarget.dataset.zoom);
     map.setZoom(Number(btn.currentTarget.dataset.zoom));
 }
 
@@ -22,7 +25,24 @@ $(`#zoom-10`).click(changeZoom);
 $(`#zoom-15`).click(changeZoom);
 $(`#zoom-20`).click(changeZoom);
 
+// set marker at The Pink Door
+function markPinkDoor(){
+    geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result){
+        let pinkDoorMarker = new mapboxgl.Marker().setLngLat(result).addTo(map);
+        map.setCenter(result);
+        map.setZoom(15);
+    })
+}
 
+// map markPinkDoor to button
+$(`#pinkBtn`).click(markPinkDoor);
+
+
+
+
+
+
+// Helper functions supplied by Codeup:
 function geocode(search, token) {
     var baseUrl = 'https://api.mapbox.com';
     var endPoint = '/geocoding/v5/mapbox.places/';
