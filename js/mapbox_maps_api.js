@@ -30,7 +30,7 @@ function markPinkDoor(){
     geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result){
         let pinkDoorMarker = new mapboxgl.Marker().setLngLat(result).addTo(map);
         let pinkDoorPopup = new mapboxgl.Popup().setHTML(`<p>The <em>Pink</em> Door</p>`);
-        pinkDoorMarker.setPopup(pinkDoorPopup);
+        pinkDoorMarker.setPopup(pinkDoorPopup); // popup occurs when marker is clicked
         map.setCenter(result);
         map.setZoom(15);
     })
@@ -45,10 +45,26 @@ function popupPinkDoor(){
     })
 }
 
-$(`#pinkPop`).click(popupPinkDoor);
+$(`#pinkPop`).click(popupPinkDoor); // places popup after button click
 
-// set popup to occur when marker is clicked
 
+// Use an array of addresses to set multiple restaurant locations
+// array structure: [[address, name, description], [address, name, description]]
+let restaurant = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`],
+    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`],
+    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`]]
+
+$(`#multiMarker`).click(populateMarkers);
+
+function populateMarkers(){
+    restaurant.forEach(function(restaurant){
+        geocode(restaurant[0], mapboxgl.accessToken).then(function(result){
+            let marker = new mapboxgl.Marker().setLngLat(result).addTo(map);
+            let popup = new mapboxgl.Popup().setHTML(`<h6>${restaurant[1]}</h6><p>${restaurant[2]}</p>`);
+            marker.setPopup(popup);
+        })
+    })
+}
 
 // Helper functions supplied by Codeup:
 function geocode(search, token) {
