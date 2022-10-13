@@ -1,5 +1,7 @@
 "use strict"
 
+var currentMarkers = []; // stores pointers to all markers. Allows me to delete markers for challenge 4
+
 // create map in map div
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDk1cXJoN2QwMG83NDF0YjE1dTg0ZHE3In0.BlEt2KHrnzDjZ7QyUtzFvg';
 var map = new mapboxgl.Map({
@@ -33,6 +35,7 @@ function markPinkDoor(){
         pinkDoorMarker.setPopup(pinkDoorPopup); // popup occurs when marker is clicked
         map.setCenter(result);
         map.setZoom(15);
+        currentMarkers.push(pinkDoorMarker);
     })
 }
 
@@ -42,6 +45,7 @@ $(`#pinkBtn`).click(markPinkDoor);
 function popupPinkDoor(){
     geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result){
         let pinkDoorMarker = new mapboxgl.Popup().setLngLat(result).setHTML(`<p><em>The Pink Door</em></p>`).addTo(map);
+        currentMarkers.push(pinkDoorMarker);
     })
 }
 
@@ -74,6 +78,7 @@ function populateMarkers(){
                     </div>
                 `);
                 marker.setPopup(popup);
+                currentMarkers.push(marker);
         });
     });
 }
@@ -105,9 +110,21 @@ function searchForAddress(input){
             marker.setPopup(popup);
             map.setCenter(result);
             map.setZoom(15);
+            currentMarkers.push(marker);
         });
-
 }
+
+// remove current markers
+
+function removeAllMarkers(){
+    if(currentMarkers !== null){
+        for (let i = currentMarkers.length - 1; i >= 0; i--){
+            currentMarkers[i].remove();
+        }
+    }
+}
+
+$(`#removeMarkers`).click(removeAllMarkers);
 
 // Helper functions supplied by Codeup:
 function geocode(search, token) {
