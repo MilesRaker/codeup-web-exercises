@@ -50,18 +50,30 @@ $(`#pinkPop`).click(popupPinkDoor); // places popup after button click
 
 // Use an array of addresses to set multiple restaurant locations
 // array structure: [[address, name, description], [address, name, description]]
-let restaurant = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`],
-    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`],
-    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`]]
+let restaurants = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`, `img/canCanEdit.jpg`],
+    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`, `img/pinkDoorEdit.jpg`],
+    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`, `img/starbucksOGEdit.jpg`]]
+
 
 $(`#multiMarker`).click(populateMarkers);
 
 function populateMarkers(){
-    restaurant.forEach(function(restaurant){
-        geocode(restaurant[0], mapboxgl.accessToken).then(function(result){
-            let marker = new mapboxgl.Marker().setLngLat(result).addTo(map);
-            let popup = new mapboxgl.Popup().setHTML(`<h6>${restaurant[1]}</h6><p>${restaurant[2]}</p>`);
-            marker.setPopup(popup);
+    restaurants.forEach(function(restaurant){
+        geocode(restaurant[0], mapboxgl.accessToken)
+            .then(function(result){
+                let marker = new mapboxgl.Marker().setLngLat(result).addTo(map);
+                let popup = new mapboxgl.Popup().setHTML(`
+                    <div>
+                        <h2>${restaurant[1]}</h2>
+                        <hr>
+                        <div style="display:flex">
+                            <img src=${restaurant[3]} style="height: 50px; width: 50px"> 
+                            <p style="display: inline; max-width:75px; height: 75px border: black solid 1px; margin-left: 10px;">${restaurant[2]}</p>
+                        </div>
+                        
+                    </div>
+                `);
+                marker.setPopup(popup);
         })
     })
 }
