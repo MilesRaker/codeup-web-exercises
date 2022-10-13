@@ -11,9 +11,9 @@ var map = new mapboxgl.Map({
 
 // Set initial location to "The Pink Door"
 geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken).then(function(result) {
-    console.log(result);
+
     map.setCenter(result);
-    map.setZoom(20);
+    map.setZoom(11);
 });
 
 // Zoom function and zoom button mapping
@@ -47,6 +47,7 @@ function popupPinkDoor(){
         let pinkDoorMarker = new mapboxgl.Popup().setLngLat(result).setHTML(`<p><em>The Pink Door</em></p>`).addTo(map);
         currentMarkers.push(pinkDoorMarker);
     })
+    requestAnimationFrame(animateMarker);
 }
 
 $(`#pinkPop`).click(popupPinkDoor); // places popup after button click
@@ -125,6 +126,101 @@ function removeAllMarkers(){
 }
 
 $(`#removeMarkers`).click(removeAllMarkers);
+
+
+// Make marker bouncy
+
+/*function animateMarker(timestamp){
+    console.log(`hello from animate marker`);
+    const radius = 20;
+
+    if (currentMarkers[0] !== null){
+        let marker = currentMarkers[0]
+
+        marker.setLngLat([
+            Math.cos(timestamp / 1000) * radius,
+            Math.sin(timestamp / 1000) * radius
+        ])
+        marker.addTo(map);
+
+        requestAnimationFrame(animateMarker)
+    }
+}*/
+
+// requestAnimationFrame(animateMarker);
+// Add a new Marker.
+
+
+
+const marker = new mapboxgl.Marker({
+    color: '#F84C4C', // color it red
+});
+
+let originalMarkerLocation = [];
+
+geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken)
+    .then(function(result){
+        marker.setLngLat(result);
+        console.log("setting marker location to: " + marker.getLngLat());
+        originalMarkerLocation = [marker.getLngLat().lng, marker.getLngLat().lat];
+        requestAnimationFrame(animateMarker);
+    })
+
+// Define the animation.
+function animateMarker(timestamp) {
+
+    console.log(`OGmarker: ${originalMarkerLocation}`);
+    /*
+    Update the data to a new position
+    based on the animation timestamp.
+    The divisor in the expression `timestamp / 1000`
+    controls the animation speed.
+    */
+
+    if(timestamp < 2000){
+        let currentCoords = marker.getLngLat();
+        let zoom = map.getZoom();
+        let amplitude;
+        console.log(zoom);
+        switch(true){
+            case (zoom >= 20):
+                amplitude = 0.00001;
+                break;
+            case (zoom >= 15):
+                amplitude = 0.0002;
+                break;
+            case (zoom >= 10):
+                amplitude = 0.003;
+                break;
+            case (zoom >= 5):
+                amplitude = 0.04;
+                break;
+            case (zoom >= 1):
+                amplitude = 0.5;
+                break;
+        }
+        console.log(`in anmateMarker(): ${currentCoords.lng} , ${currentCoords.lat} and amplitude: ${amplitude}`);
+        marker.setLngLat([
+            currentCoords.lng , // change to currentLng + timestamp/1000 * zoomLevel*scalingFactor
+            originalMarkerLocation[1] + Math.abs(Math.sin(timestamp / 200) * (amplitude)) // change to currentLng + timestamp/1000 * zoomLevel*scalingFactor
+        ]);
+
+        /*
+        Ensure the marker is added to the map.
+        This is safe to call if it's already added.
+        */
+        marker.addTo(map);
+
+
+// Request the next frame of the animation.
+        requestAnimationFrame(animateMarker);
+    } else {
+        marker.setLngLat(originalMarkerLocation);
+    }
+
+}
+
+// Start the animation.
 
 // Helper functions supplied by Codeup:
 function geocode(search, token) {
