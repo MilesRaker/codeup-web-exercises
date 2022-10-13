@@ -55,9 +55,9 @@ $(`#pinkPop`).click(popupPinkDoor); // places popup after button click
 
 // Use an array of addresses to set multiple restaurant locations
 // array structure: [[address, name, description], [address, name, description]]
-let restaurants = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`, `img/canCanEdit.jpg`],
-    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`, `img/pinkDoorEdit.jpg`],
-    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`, `img/starbucksOGEdit.jpg`]]
+let restaurants = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`, `img/canCanEdit.jpg`, `img/dancing.svg`],
+    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`, `img/pinkDoorEdit.jpg`, `img/plate.svg`],
+    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`, `img/starbucksOGEdit.jpg`, `img/coffee.svg`]]
 
 
 $(`#multiMarker`).click(populateMarkers);
@@ -66,7 +66,9 @@ function populateMarkers(){
     restaurants.forEach(function(restaurant){
         geocode(restaurant[0], mapboxgl.accessToken)
             .then(function(result){
-                let marker = new mapboxgl.Marker().setLngLat(result).addTo(map);
+                let marker = new mapboxgl.Marker()
+                    .setLngLat(result)
+                    .addTo(map);
                 let popup = new mapboxgl.Popup().setHTML(`
                     <div>
                         <h2>${restaurant[1]}</h2>
@@ -128,29 +130,6 @@ function removeAllMarkers(){
 $(`#removeMarkers`).click(removeAllMarkers);
 
 
-// Make marker bouncy
-
-/*function animateMarker(timestamp){
-    console.log(`hello from animate marker`);
-    const radius = 20;
-
-    if (currentMarkers[0] !== null){
-        let marker = currentMarkers[0]
-
-        marker.setLngLat([
-            Math.cos(timestamp / 1000) * radius,
-            Math.sin(timestamp / 1000) * radius
-        ])
-        marker.addTo(map);
-
-        requestAnimationFrame(animateMarker)
-    }
-}*/
-
-// requestAnimationFrame(animateMarker);
-// Add a new Marker.
-
-
 
 const marker = new mapboxgl.Marker({
     color: '#F84C4C', // color it red
@@ -161,7 +140,7 @@ let originalMarkerLocation = [];
 geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken)
     .then(function(result){
         marker.setLngLat(result);
-        console.log("setting marker location to: " + marker.getLngLat());
+        console.log(marker);
         originalMarkerLocation = [marker.getLngLat().lng, marker.getLngLat().lat];
         requestAnimationFrame(animateMarker);
     })
@@ -220,7 +199,30 @@ function animateMarker(timestamp) {
 
 }
 
-// Start the animation.
+
+// ------------------ Final Challenge! ------------------
+/* create markers with custom icons for each restaurant */
+
+const geoJSON = {
+    type: 'FeatureCollection',
+    features: [
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: []
+            },
+            properties: {
+                title: 'The Pink Door',
+                description: 'Yummy Italian food and Burlesque dancing'
+            }
+        },
+        {
+
+        }
+    ]
+}
+
 
 // Helper functions supplied by Codeup:
 function geocode(search, token) {
