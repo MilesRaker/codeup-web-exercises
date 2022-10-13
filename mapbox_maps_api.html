@@ -5,24 +5,48 @@
     <title>Mapbox API Exercise</title>
 
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-
+    <!-- JavaScript Bundle with Popper -->
 
 </head>
 <body>
 
-    <div id='map' style='width: 400px; height: 300px;'></div>
-    <div >
-        <button id="zoom-5" data-zoom="5">Zoom 5</button>
-        <button id="zoom-10" data-zoom="10">Zoom 10</button>
-        <button id="zoom-15" data-zoom="15">Zoom 15</button>
-        <button id="zoom-20" data-zoom="20">Zoom 20</button>
-        <button id="pinkBtn" >To Pink Door</button>
-        <button id="pinkPop" >Pink Door Popup</button>
-        <button id="multiMarker" >Set multiple markers</button>
+
+    <div class="container">
+        <div id='map' style='width: 400px; height: 300px; border: 3px solid lightgray'></div>
+        <br>
+        <div class="row">
+            <button id="zoom-5" data-zoom="5">Zoom 5</button>
+            <button id="zoom-10" data-zoom="10">Zoom 10</button>
+            <button id="zoom-15" data-zoom="15">Zoom 15</button>
+            <button id="zoom-20" data-zoom="20">Zoom 20</button>
+        </div>
+        <div class="row">
+            <button id="pinkBtn" >To Pink Door</button>
+            <button id="pinkPop" >Pink Door Popup</button>
+            <button id="multiMarker" >Set multiple markers</button>
+        </div>
+        <hr>
+        <div class="row">
+            <label for="zoomSelect">Select Zoom Level:</label>
+            <select id="zoomSelect">
+                <option disabled selected >--select magnification--</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <hr>
+        <form id="addressInput" >
+            <input type="text" >
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
     </div>
 
 
 <!--    JS imports-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="js/mapbox_maps_api.js"></script>

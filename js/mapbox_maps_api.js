@@ -74,8 +74,39 @@ function populateMarkers(){
                     </div>
                 `);
                 marker.setPopup(popup);
-        })
-    })
+        });
+    });
+}
+
+
+// creating zoom selector
+
+$(`#zoomSelect`).on(`change`,changeZoomSelect);
+
+function changeZoomSelect(){
+    map.setZoom($(`#zoomSelect`).val());
+}
+
+// search for user input location
+
+$(`#addressInput`).submit(searchForAddress);
+
+function searchForAddress(input){
+    input.preventDefault();
+    let searchString = input.target[0].value; // user input address string
+
+    geocode(searchString, mapboxgl.accessToken)
+        .then(function(result){
+            let marker = new mapboxgl.Marker().setLngLat(result).addTo(map);
+            let popup = new mapboxgl.Popup().setHTML(`
+                <h1>User Defined Marker</h1>
+                <p>${searchString}</p>
+            `);
+            marker.setPopup(popup);
+            map.setCenter(result);
+            map.setZoom(15);
+        });
+
 }
 
 // Helper functions supplied by Codeup:
