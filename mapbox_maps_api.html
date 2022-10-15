@@ -10,26 +10,53 @@
 
 </head>
 <body>
-
+    <h1>MapboxGL API Exercises</h1>
 
     <div class="container">
         <div id='map' style='width: 400px; height: 300px; border: 3px solid lightgray'></div>
-        <br>
+        <hr>
+        <h2>>Exercise Section<</h2>
         <div class="row">
+            <p>Exercise 1: Generate Mapbox API Key ✅</p>
+        </div>
+        <div class="row">
+            <p>Exercise 2: Add a map to a new HTML file ✅</p>
+        </div>
+        <div class="row">
+            <p>Exercise 3: Initial map shows Seattle✅</p>
+        </div>
+        <div class="row">
+            <span>Exercise 4: Change Zoom level and redraw map: </span>
             <button id="zoom-5" data-zoom="5">Zoom 5</button>
             <button id="zoom-10" data-zoom="10">Zoom 10</button>
             <button id="zoom-15" data-zoom="15">Zoom 15</button>
             <button id="zoom-20" data-zoom="20">Zoom 20</button>
-            <button id="removeMarkers">Remove All Markers</button>
         </div>
         <div class="row">
+            <label for="pinkBtn">Exercise 5: Go to favorite restaurant:</label>
             <button id="pinkBtn" >To Pink Door</button>
+        </div>
+        <div class="row">
+            <label for="pinkPop">Exercise 6: Set Pink Door Popup: </label>
             <button id="pinkPop" >Pink Door Popup</button>
+        </div>
+        <div class="row">
+            <label for="pinkMarkerPop">Exercise 7: Set Pink Door Marker with Clicky popup: </label>
+            <button id="pinkMarkerPop" >Pink Door Marker + Popup</button>
+        </div>
+        <div class="row">
+            <label for="multiMarker">Exercise 8: Set 3 markers with popups: </label>
             <button id="multiMarker" >Set multiple markers</button>
         </div>
+
         <hr>
+        <h2>> Challenge Section <</h2>
         <div class="row">
-            <label for="zoomSelect">Select Zoom Level:</label>
+            <label for="challengeMultiMarker">Challenge 1: Add more HTML to popups</label>
+            <button id="challengeMultiMarker">Set Challenge 1 markers</button>
+        </div>
+        <div class="row">
+            <label for="zoomSelect">Challenge 2: Select Zoom Level:</label>
             <select id="zoomSelect">
                 <option disabled selected >--select magnification--</option>
                 <option value="5">5</option>
@@ -38,17 +65,36 @@
                 <option value="20">20</option>
             </select>
         </div>
-        <hr>
-        <form id="addressInput" >
-            <input type="text" >
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-
+        <div class="row">
+            <label for="addressInput" class="col-2">Challenge 3: Address lookup: </label>
+            <form id="addressInput" class="col-4" style="display:inline">
+                <input type="text" >
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+        <div class="row">
+            <label for="removeMarkers">Challenge 4: Remove all markers button</label>
+            <button id="removeMarkers">Remove All Markers</button>
+        </div>
+        <div class="row">
+            <label for="bouncyMarker">Challenge 5: Animate Marker:</label>
+            <button id="bouncyMarker">Place Bouncy Marker at My Home</button>
+        </div>
+        <div class="row">
+            <label for="lastMarkerBounce">Make the last placed marker bounce:</label>
+            <button id="lastMarkerBounce">Get bouncy</button>
+        </div>
+        <div class="row">
+            <label for="imageMarkerBtn">Challenge 6: Custom Marker Icons</label>
+            <button id="imageMarkerBtn">set markers with custom icons</button>
+        </div>
     </div>
 
     <hr>
+    <br>
+    <footer>Development by: <em>Miles Raker</em></footer>
 
-    <button id="imageMarkerBtn">set marker with image</button>
+
 
 
 <!--    JS imports-->
