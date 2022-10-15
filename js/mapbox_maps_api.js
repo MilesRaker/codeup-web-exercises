@@ -55,9 +55,9 @@ $(`#pinkPop`).click(popupPinkDoor); // places popup after button click
 
 // Use an array of addresses to set multiple restaurant locations
 // array structure: [[address, name, description], [address, name, description]]
-let restaurants = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`, `img/canCanEdit.jpg`, `img/dancing.svg`],
-    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`, `img/pinkDoorEdit.jpg`, `img/plate.svg`],
-    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`, `img/starbucksOGEdit.jpg`, `img/coffee.svg`]]
+let restaurants = [[`1919 Post Alley, Seattle, WA 98101`, `The Pink Door`, `Italian food and a show`, `img/canCanEdit.jpg`, `img/DinnerIcon.png`],
+    [`95 Pine St, Seattle, WA 98101`, `Can Can`, `Dinner and a show, elegant dates`, `img/pinkDoorEdit.jpg`, `img/BurlesqueIcon.png`],
+    [`1912 Pike Pl, Seattle, WA 98101`, `Original Starbucks`, `Established 1971, Coffee`, `img/starbucksOGEdit.jpg`, `img/StarbucksIcon.png`]]
 
 
 $(`#multiMarker`).click(populateMarkers);
@@ -130,25 +130,25 @@ function removeAllMarkers(){
 $(`#removeMarkers`).click(removeAllMarkers);
 
 
-
+// ------ Bouncy Marker ------
 const marker = new mapboxgl.Marker({
     color: '#F84C4C', // color it red
 });
 
 let originalMarkerLocation = [];
 
-geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken)
-    .then(function(result){
-        marker.setLngLat(result);
-        console.log(marker);
-        originalMarkerLocation = [marker.getLngLat().lng, marker.getLngLat().lat];
-        requestAnimationFrame(animateMarker);
-    })
+// geocode("1919 Post Alley, Seattle, WA 98101", mapboxgl.accessToken)
+//     .then(function(result){
+//         marker.setLngLat(result);
+//         console.log(marker);
+//         originalMarkerLocation = [marker.getLngLat().lng, marker.getLngLat().lat];
+//         requestAnimationFrame(animateMarker);
+//     })
 
 // Define the animation.
 function animateMarker(timestamp) {
 
-    console.log(`OGmarker: ${originalMarkerLocation}`);
+    // console.log(`OGmarker: ${originalMarkerLocation}`);
     /*
     Update the data to a new position
     based on the animation timestamp.
@@ -160,7 +160,7 @@ function animateMarker(timestamp) {
         let currentCoords = marker.getLngLat();
         let zoom = map.getZoom();
         let amplitude;
-        console.log(zoom);
+        // console.log(zoom);
         switch(true){
             case (zoom >= 20):
                 amplitude = 0.00001;
@@ -178,7 +178,7 @@ function animateMarker(timestamp) {
                 amplitude = 0.5;
                 break;
         }
-        console.log(`in anmateMarker(): ${currentCoords.lng} , ${currentCoords.lat} and amplitude: ${amplitude}`);
+        // console.log(`in anmateMarker(): ${currentCoords.lng} , ${currentCoords.lat} and amplitude: ${amplitude}`);
         marker.setLngLat([
             currentCoords.lng , // change to currentLng + timestamp/1000 * zoomLevel*scalingFactor
             originalMarkerLocation[1] + Math.abs(Math.sin(timestamp / 200) * (amplitude)) // change to currentLng + timestamp/1000 * zoomLevel*scalingFactor
@@ -203,25 +203,40 @@ function animateMarker(timestamp) {
 // ------------------ Final Challenge! ------------------
 /* create markers with custom icons for each restaurant */
 
-const geoJSON = {
-    type: 'FeatureCollection',
-    features: [
-        {
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: []
-            },
-            properties: {
-                title: 'The Pink Door',
-                description: 'Yummy Italian food and Burlesque dancing'
-            }
-        },
-        {
+$(`#imageMarkerBtn`).click(setStarbucksMarkerWithImage)
 
-        }
-    ]
+function setStarbucksMarkerWithImage(){
+    let marker = new mapboxgl.Marker({
+        color: '#F84C4C', // color it red
+    });
+
+    geocode(restaurants[0][0], mapboxgl.accessToken)
+        .then(function(result){
+            marker.setLngLat(result);
+            console.log(marker._element.innerHTML);
+            marker._element.innerHTML = `<img class="mapIcon" src=${restaurants[0][4]}>`
+            marker.addTo(map);
+        })
 }
+
+function setThreeMarkersWithImages(){
+    restaurants.forEach(function(location){
+        let marker = new mapboxgl.Marker();
+
+        geocode(location[0], mapboxgl.accessToken)
+            .then(function(result){
+                marker.setLngLat(result);
+                marker._element.innerHTML = `
+                    <div class="container">
+                        <img class="mapIcon" id="${location[1]}-icon" src=${location[4]}>
+                        <label for="${location[1]}-icon">${location[1]}</label>
+                    </div>`
+                marker.addTo(map);
+            })
+    });
+}
+// setStarbucksMarkerWithImage();
+setThreeMarkersWithImages();
 
 
 // Helper functions supplied by Codeup:
@@ -249,3 +264,5 @@ function reverseGeocode(coordinates, token) {
             return data.features[0].place_name;
         });
 }
+
+// dinner icon found at: <a href="https://www.flaticon.com/free-icons/dinner" title="dinner icons">Dinner icons created by Freepik - Flaticon</a>
