@@ -90,3 +90,35 @@ $("li").hover(
 
 // --------------- JQuery Keyboard Events ----------------------
 
+$(document).keyup(keyLog);
+let konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13 ]
+let keyLogArray = [];
+/**
+ * keyLogger creates alert if Konami code is entered
+ * @param {element} e holds e.keyCode
+ * @return void*/
+function keyLog(e){
+    if(keyLogArray.length < 11) {
+        keyLogArray.push(Number(e.keyCode));
+    } else {
+        keyLogArray.shift();
+        keyLogArray.push(Number(e.keyCode));
+    }
+    console.log(keyLogArray);
+    if(isKonamiCode()){
+        alert("You have added 30 lives!");
+    }
+
+}
+
+/**
+ * checks if konamiCode has been entered
+ * @return {boolean} */
+function isKonamiCode(){
+    for(let i = 0; i < konamiCode.length; i++){
+        if(konamiCode[i] !== keyLogArray[i]){
+            return false;
+        }
+    }
+    return true;
+}
