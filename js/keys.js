@@ -1,0 +1,2 @@
+const OPEN_WEATHER_APP = `9e77d7e93e7b6184af5002fc98f0fe6f`
+const MAPBOX_WEATHER_APP = `pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDltd212c3gwMjJnM25yczlxcnl1d2Q0In0.Q3mogEHH0L-lMfg_oNj1Lw`
