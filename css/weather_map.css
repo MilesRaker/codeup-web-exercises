@@ -20,3 +20,8 @@
 #initialWeatherData>*{
     margin: .5em;
 }
+
+#weatherDisplayTitle{
+    display: inline-flex;
+}
+

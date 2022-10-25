@@ -51,12 +51,13 @@
         "price": 10
     },
     {
-        "title": "Virtual Lesson",
-        "quantity": 1000,
+        "title": "Arduino Nano",
+        "quantity": 125,
         "categories": [
-            "education",
-            "building"
+            "SoC",
+            "electronic"
         ],
         "price": 10
     }
+
 ]
