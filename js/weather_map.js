@@ -2,7 +2,10 @@
 
 // Initialize Mapbox Map
 mapboxgl.accessToken = MAPBOX_WEATHER_APP;
-let homeLngLat = {lon: -122.872575,lat: 46.300395};
+let homeLngLat = {lng: -122.872575, lat: 46.300395};
+let homeLocation = "";
+reverseGeocode(homeLngLat, MAPBOX_WEATHER_APP).then(function(result){homeLocation = result})
+
 let map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
@@ -17,7 +20,7 @@ map.addControl(new mapboxgl.NavigationControl());
 $.get("http://api.openweathermap.org/data/2.5/onecall", {
     APPID: OPEN_WEATHER_APP,
     lat:    homeLngLat.lat,
-    lon:   homeLngLat.lon,
+    lon:   homeLngLat.lng,
     units: "imperial"
 }).done(function(data) {
     //display date, temp, description, humidity, wind, and pressure
@@ -48,29 +51,27 @@ $.get("http://api.openweathermap.org/data/2.5/onecall", {
 $(`#fiveDayLocalForecast`).click(renderFiveDays);
 function renderFiveDays(){
     // ask api for data
-    // built html string
+    // build html string
     // render html string in #weatherDisplay
 
     let html = "";
     $.get("http://api.openweathermap.org/data/2.5/onecall", {
         APPID: OPEN_WEATHER_APP,
         lat:    homeLngLat.lat,
-        lon:   homeLngLat.lon,
+        lon:   homeLngLat.lng,
         units: "imperial"
     }).done(function(data) {
-        console.log(data);
-        let location = "";
-        reverseGeocode(homeLngLat, MAPBOX_WEATHER_APP).then(function(result){location = result}).then(function(){console.log(`location call: ${location}`)});
+
         //display date, temp, description, humidity, wind, and pressure
         data.daily.forEach(function(day){
             let dateTime = new Date(day.dt * 1000);
             let date = dateTime.toUTCString().slice(0, 11);
-console.log(`day: `, day.weather[0].icon);
+
             html +=`
                  <div class="card col">
                     <dl class="displayDay">
                         <dt>Location:</dt>
-                        <dt>${location}</dt>
+                        <dt>${homeLocation}</dt>
                         <dt>Date:</dt>
                         <dl>${date}</dl>
                         <dt>High Temp:</dt>
@@ -92,12 +93,7 @@ console.log(`day: `, day.weather[0].icon);
     });
 }
 
-// ----- reverseGeoCode -----
 
-reverseGeocode(homeLngLat, MAPBOX_WEATHER_APP).then(function(result){
-    console.log(`testing ReverseGeocode: `, result);
-})
 
-geocode(`128 timberline drive castle rock wa 98611`, MAPBOX_WEATHER_APP).then(function(result){
-    console.log(`testing Geocode: `, result);
-})
+// ----- Drop Pin to Update 5-Day Forecast Location -----
+
