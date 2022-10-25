@@ -39,12 +39,18 @@
             </div>
         </nav>
         <br>
-        <div id="toolbar">
+        <button id="markerTypeToggle" class="btn btn-primary position-absolute end-0">Drop Movable Pin</button>
+        <form id="inputAddressForm" class="form">
+            <div id="toggleInput">
+                <label for="inputAddress"> Search:
+                    <input id="inputAddress" type="text" placeholder="Enter Address...">
+                </label>
+                <button type="submit" id="inputAddressSubmit">Search</button>
+            </div>
+        </form>
 
-
-        </div>
         <div id="weatherDisplayTitle">
-            <h3>Current Weather in Castle Rock, WA: </h3>
+            <h3>Location: </h3>
             <button id="fiveDayLocalForecast" class="btn btn-primary position-absolute end-0">Five Day View</button>
         </div>
         <div class="container">
