@@ -29,7 +29,6 @@ $(`#fiveDayLocalForecast`).click(function(){
     }
 })
 
-/************** Toggle Search Mode ****************/
 
 /************** Functions ***************/
 
@@ -107,6 +106,7 @@ function renderWeather(lngLat){
 
         }
         reverseGeocode(lngLat, MAPBOX_WEATHER_APP).then(function(result){
+            console.log(result)
             $(`#weatherDisplayTitle>p`).html(`${result}`)
         })
     });
