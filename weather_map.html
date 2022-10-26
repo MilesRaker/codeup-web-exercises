@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-lg shadow bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Miles' Weather Map</a>
-                <button class="navbar-toggler" type="button" data-ba-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -39,23 +39,31 @@
             </div>
         </nav>
         <br>
-        <button id="markerTypeToggle" class="btn btn-primary position-absolute end-0">Drop Movable Pin</button>
+        <!-- Controls Section -->
+        <div id="controls" class="container mb-2 d-flex flex-row justify-content-around justify-content-md-start">
+            <button id="markerTypeToggle" class="btn btn-primary mx-1">Drop Pin</button>
+            <button id="fiveDayLocalForecast" class="btn btn-primary mx-1">Five Day Forecast</button>
+        </div>
+
+
+        <!-- Address Input Form -->
         <form id="inputAddressForm" class="form">
-            <div id="toggleInput">
+            <div id="toggleInput" class="d-flex justify-content-center justify-content-md-start">
                 <label for="inputAddress"> Search:
                     <input id="inputAddress" type="text" placeholder="Enter Address...">
                 </label>
                 <button type="submit" id="inputAddressSubmit">Search</button>
             </div>
         </form>
-
-        <div id="weatherDisplayTitle">
+        <hr>
+        <!-- Weather Display Section -->
+        <div id="weatherDisplayTitle" class="d-flex flex-column container">
             <h3>Location: </h3>
-            <button id="fiveDayLocalForecast" class="btn btn-primary position-absolute end-0">Five Day View</button>
+            <p></p> <!-- innerHTML is loaded from js-->
         </div>
-        <div class="container">
+        <div class="container mx-auto">
             <div id="weatherDisplay" class="row">
-
+                <!-- innerHTML is loaded from js -->
             </div>
         </div>
 
@@ -63,6 +71,7 @@
         <div id='map' class="mx-auto"></div>
 
     </main>
+
     <footer>
 
     </footer>

@@ -1,2 +1,2 @@
-const OPEN_WEATHER_APP = `9e77d7e93e7b6184af5002fc98f0fe6f`
-const MAPBOX_WEATHER_APP = `pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDltd212c3gwMjJnM25yczlxcnl1d2Q0In0.Q3mogEHH0L-lMfg_oNj1Lw`
+const OPEN_WEATHER_APP = `e2876a4c73423177796f4f0ed781c555`
+const MAPBOX_WEATHER_APP = `pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDlwcWhucXMwMGJoM3duNG5nZXJhbzFrIn0.mnjGk-kUVVaIMhOolUwHnQ`

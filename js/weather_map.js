@@ -25,7 +25,7 @@ $(`#fiveDayLocalForecast`).click(function(){
     if(currentWeather){
         $(`#fiveDayLocalForecast`).html(`Five Day Forecast`)
     } else {
-        $(`#fiveDayLocalForecast`).html(`Current Weather View`)
+        $(`#fiveDayLocalForecast`).html(`Current Weather`)
     }
 })
 
@@ -43,56 +43,71 @@ function renderWeather(lngLat){
     }).done(function(data){
         if(currentWeather) {
             let html = `
-        <div class="card">
+        <div class="card mx-auto">
     
-            <dl id="initialWeatherData">
-                <dt>Temperature:</dt>
-                <dl>${data.current.temp}<span>&#176;</span>F</dl>
-                <dt>Description:</dt>
-                <dl>${data.current.weather[0].description}</dl>
-                <dt>Humidity:</dt>
-                <dl>${data.current.humidity}%</dl>
-                <dt>Wind:</dt>
-                <dl>${data.current.wind_gust} mph</dl>
-                <dt>Pressure:</dt>
-                <dl>${data.current.pressure} mmHg</dl>
+            <dl id="initialWeatherData" class="d-flex flex-column flex-md-row align-items-center">
+                <div class="row col-md">
+                    <dt class="text-center">Temperature:</dt>
+                    <dl class="text-center">${data.current.temp}<span>&#176;</span>F</dl>
+                </div>
+                <div class="row col-md">
+                    <dt class="text-center">Description:</dt>
+                    <dl class="text-center">${data.current.weather[0].description}</dl>           
+                </div>
+                <div class="row col-md">
+                    <dt class="text-center">Humidity:</dt>
+                    <dl class="text-center">${data.current.humidity}%</dl>       
+                </div>
+                <div class="row col-md">
+                    <dt class="text-center">Wind:</dt>
+                    <dl class="text-center">${data.current.wind_gust} mph</dl> 
+                </div>
+                <div class="row col-md">
+                    <dt class="text-center">Pressure:</dt>
+                    <dl class="text-center">${data.current.pressure} mmHg</dl>
+                </div>
+
             </dl>
         </div>
         `
 
             $(`#weatherDisplay`).html(html);
         } else {
-            let html = "";
-
+            let html = ``;
+            let colCount = 0;
             data.daily.forEach(function(day){
                 let dateTime = new Date(day.dt * 1000);
                 let date = dateTime.toUTCString().slice(0, 11);
+                colCount ++;
 
                 html +=`
-                 <div class="card col">
-                    <dl class="displayDay">
-                        <dt>Date:</dt>
-                        <dl>${date}</dl>
-                        <dt>High Temp:</dt>
-                        <dl>${day.temp.max}<span>&#176;</span>F</dl>
-                        <dt>Description:</dt>
-                        <dl>${day.weather[0].description} <img src="http://openweathermap.org/img/w/${day.weather[0].icon}.png"</dl>
-                        <dt>Humidity:</dt>
-                        <dl>${day.humidity}%</dl>
-                        <dt>Wind:</dt>
-                        <dl>${day.wind_gust} mph</dl>
-                        <dt>Pressure:</dt>
-                        <dl>${day.pressure} mmHg</dl>
-                    </dl>
-                </div>
+
+                     <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <dl class="displayDay">
+                            <dt class="row text-center d-block">Date:</dt>
+                            <dd class="row text-center d-block">${date}</dd>
+                            <dt class="row text-center d-block">High Temp:</dt>
+                            <dd class="row text-center d-block">${day.temp.max}<span>&#176;</span>F</dd>
+                            <dt class="row text-center d-block">Description:</dt>
+                            <dd class="row text-center d-block">${day.weather[0].description} <img class="weatherIcon" src="http://openweathermap.org/img/w/${day.weather[0].icon}.png"</dd>
+                            <dt class="row text-center d-block">Humidity:</dt>
+                            <dd class="row text-center d-block">${day.humidity}%</dd>
+                            <dt class="row text-center d-block">Wind:</dt>
+                            <dd class="row text-center d-block">${day.wind_gust} mph</dd>
+                            <dt class="row text-center d-block">Pressure:</dt>
+                            <dd class="row text-center d-block">${day.pressure} mmHg</dd>
+                        </dl>
+                    </div>
+
             `
             })
+            html += ``;
             $(`#weatherDisplay`).html(html);
 
 
         }
         reverseGeocode(lngLat, MAPBOX_WEATHER_APP).then(function(result){
-            $(`#weatherDisplayTitle>h3`).html(`Location: ${result} `)
+            $(`#weatherDisplayTitle>p`).html(`${result}`)
         })
     });
 
@@ -111,12 +126,12 @@ function setLocation(e){
     // remove markers
     map._markers.forEach(function(marker){marker.remove();});
     if(addressMarker){
-        markerToggle.html(`Drop Movable Pin`);      // change button text
-        $(`#toggleInput`).toggleClass("invisible")  // change input visibility
+        markerToggle.html(`Drop Pin`);      // change button text
+        $(`#toggleInput`).toggleClass("d-none")  // change input visibility
 
     } else {
-        markerToggle.html(`Search by Address`);     // change button text
-        $(`#toggleInput`).toggleClass("invisible")  // change input visibility
+        markerToggle.html(`Search Address`);     // change button text
+        $(`#toggleInput`).toggleClass("d-none")  // change input visibility
 
         // add marker to map at current lngLat
         const marker = new mapboxgl.Marker({

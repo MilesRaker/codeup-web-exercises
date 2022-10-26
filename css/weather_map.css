@@ -25,3 +25,11 @@
     display: inline-flex;
 }
 
+#initialWeatherData>div{
+    width: 100%;
+}
+
+.weatherIcon{
+    max-height: 100px;
+    max-width: 100px;
+}
