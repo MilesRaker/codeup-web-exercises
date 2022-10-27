@@ -8,7 +8,7 @@
 5. ✅ Use .reduce to get the longest email from the list of users.
 6. ✅ Use .reduce to get the list of user's names in a single string. Example: Your instructors are: ryan, luis, zach, fernando, justin.
 Bonus
-1. Use .reduce to get the unique list of languages from the list of users.*/
+1. ✅ Use .reduce to get the unique list of languages from the list of users.*/
 
 const users = [
     {

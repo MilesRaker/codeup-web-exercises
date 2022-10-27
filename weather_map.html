@@ -15,9 +15,6 @@
 </head>
 <body>
     <header>
-
-    </header>
-    <main>
         <nav class="navbar navbar-expand-lg shadow bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Miles' Responsive Weather Map</a>
@@ -38,11 +35,16 @@
                 </div>
             </div>
         </nav>
+    </header>
+
+    <main class="backgroundClass">
+        <div>
+
         <br>
         <!-- Controls Section -->
         <div id="controls" class="container mb-2 d-flex flex-row justify-content-around justify-content-md-start">
-            <button id="markerTypeToggle" class="btn btn-primary mx-1">Drop Pin</button>
-            <button id="fiveDayLocalForecast" class="btn btn-primary mx-1">Five Day Forecast</button>
+            <button id="markerTypeToggle" class="btn btn-accent mx-1">Drop Pin</button>
+            <button id="fiveDayLocalForecast" class="btn btn-accent mx-1">Five Day Forecast</button>
         </div>
 
 
@@ -57,19 +59,21 @@
         </form>
         <hr>
         <!-- Weather Display Section -->
-        <div id="weatherDisplayTitle" class="d-flex flex-column container">
+        <div id="weatherDisplayTitle" class="d-flex flex-column container ">
             <h3>Location: </h3>
             <p></p> <!-- innerHTML is loaded from js-->
         </div>
-        <div class="container mx-auto">
+        <div class="container mx-auto transparentBG">
             <div id="weatherDisplay" class="row">
                 <!-- innerHTML is loaded from js -->
             </div>
         </div>
 
+        <br>
+
         <!-- Div holds Mapbox -->
         <div id='map' class="mx-auto"></div>
-
+        </div>
     </main>
 
     <footer>

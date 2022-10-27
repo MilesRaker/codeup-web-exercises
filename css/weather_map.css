@@ -1,11 +1,28 @@
 :root{
-
+    --rawSienna: #D77E3E;
+    --almond: #EED9C4;
+    --ochre: #C5751F;
+    --lightSalmon: #FDA47B;
 }
 
 *{
 
 }
 
+main{
+    background-image: url("../img/WeatherAppBackground.png");
+}
+
+.btn-accent{
+    background-color: var(--ochre);
+    color: whitesmoke;
+}
+.transparentBG{
+    opacity: 0.6;
+}
+#weatherDisplay>*{
+    color: #000000;
+}
 #map{
     width: 90%;
     height: 300px;
