@@ -1,2 +1,3 @@
 const OPEN_WEATHER_APP = `e2876a4c73423177796f4f0ed781c555`
 const MAPBOX_WEATHER_APP = `pk.eyJ1IjoibWlsZXNyYWtlciIsImEiOiJjbDlwcWhucXMwMGJoM3duNG5nZXJhbzFrIn0.mnjGk-kUVVaIMhOolUwHnQ`
+const GITHUB_PROMISES_TOKEN = "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";
